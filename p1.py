@@ -102,13 +102,15 @@ def main(spark, args):
     if args.search_for == USERS_SF:
         if args.search_by == USERS_SB:
             # Find user by user id
-
-            user_ratings = ratings.where(ratings.userId == args.search_value)
-            output.write("Number of movies watched ->", user_ratings.count())
-            user_movies = movies.join(
-                user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
-            user_genres = user_movies.select(explode(user_movies.genres))
-            output.write("Number of user genres ->", user_genres.distinct().count())
+            output.write("userId,moviesWatched,genres\n")
+            for id in args.search_value:
+                output.write(id+",")
+                user_ratings = ratings.where(ratings.userId == id)
+                output.write(user_ratings.count()+",")
+                user_movies = movies.join(
+                    user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
+                user_genres = user_movies.select(explode(user_movies.genres))
+                output.write(user_genres.distinct().count()+"\n")
 
 
 if __name__ == "__main__":
