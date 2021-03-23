@@ -21,6 +21,7 @@ RATING_SB = "rating"
 WATCHES_SB = "watches"
 
 
+
 def parse_args():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter)
@@ -101,17 +102,21 @@ def main(spark, args):
 
     if args.search_for == USERS_SF:
         if args.search_by == USERS_SB:
-            # Find user by user id
-            output.write("userId,moviesWatched,genres\n")
-            for id in args.search_value:
-                output.write(id+",")
-                user_ratings = ratings.where(ratings.userId == id)
-                output.write(user_ratings.count()+",")
-                user_movies = movies.join(
-                    user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
-                user_genres = user_movies.select(explode(user_movies.genres))
-                output.write(user_genres.distinct().count()+"\n")
+            userById(ratings, movies, args.search_value, output)
+    elif args.search_for == MOVIES_SF:
+        pass
 
+# Find user by user id
+def userById(ratings, movies, search_value, output):
+    output.write("userId,moviesWatched,genres\n")
+    for id in args.search_value:
+        output.write(id+",")
+        user_ratings = ratings.where(ratings.userId == id)
+        output.write(user_ratings.count()+",")
+        user_movies = movies.join(
+            user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
+        user_genres = user_movies.select(explode(user_movies.genres))
+        output.write(user_genres.distinct().count()+"\n")
 
 if __name__ == "__main__":
 
