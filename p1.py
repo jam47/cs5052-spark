@@ -80,6 +80,7 @@ def main(spark, args):
         output = sys.stdout
     # TODO - Use this output
 
+
     # Read dataset
     ratings = spark.read.csv(DATASET_FILEPATH + "/ratings.csv", header=True)
     movies = spark.read.csv(DATASET_FILEPATH + "/movies.csv", header=True)
@@ -93,18 +94,20 @@ def main(spark, args):
 
     # Persist dataset
     ratings.cache()
+    movies.cache()
     # TODO - Cache others here
 
     # display number of movies/genre for particular user
-    id = 1  # TODO - Replace with supplied user ID
 
-    # Find
-    user_ratings = ratings.where(ratings.userId == id)
-    print("Number of movies watched ->", user_ratings.count())
-    user_movies = movies.join(
-        user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
-    user_genres = user_movies.select(explode(user_movies.genres))
-    print("Number of user genres ->", user_genres.distinct().count())
+    if args.search_for == USERS_SF:
+        if args.search_by == USERS_SB:
+            # Find user by user id
+            user_ratings = ratings.where(ratings.userId == args.search_value)
+            output.write("Number of movies watched ->", user_ratings.count())
+            user_movies = movies.join(
+                user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
+            user_genres = user_movies.select(explode(user_movies.genres))
+            output.write("Number of user genres ->", user_genres.distinct().count())
 
 
 if __name__ == "__main__":
