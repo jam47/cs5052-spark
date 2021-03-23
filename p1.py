@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, split, explode
+from pyspark.sql.functions import col, split, explode, mean
 import sys
 import argparse
 
@@ -19,7 +19,6 @@ YEAR_SB = "year"
 GENRES_SB = "genres"
 RATING_SB = "rating"
 WATCHES_SB = "watches"
-
 
 
 def parse_args():
@@ -48,7 +47,7 @@ def parse_args():
                               ))
 
     # Search value
-    parser.add_argument("-v", "--value", action="store", dest="search_value", nargs='+', # One or more arguments needs to be last argument
+    parser.add_argument("-v", "--value", action="store", dest="search_value", nargs='+',  # One or more arguments needs to be last argument
                         help="The value to search by")
 
     # Results length
@@ -76,11 +75,10 @@ def parse_args():
 def main(spark, args):
     # Open outfile
     if args.out is not None and args.out != "":
-        output = open(args.outfile, "w")
+        output = open(args.out, "w")
     else:
         output = sys.stdout
     # TODO - Use this output
-
 
     # Read dataset
     ratings = spark.read.csv(DATASET_FILEPATH + "/ratings.csv", header=True)
@@ -104,19 +102,49 @@ def main(spark, args):
         if args.search_by == USERS_SB:
             userById(ratings, movies, args.search_value, output)
     elif args.search_for == MOVIES_SF:
-        pass
+        if args.search_by == MOVIE_IDS_SB:
+            movieById(ratings, movies, args.search_value, output)
+        elif args.search_by == MOVIE_NAMES_SB:
+            movieByName(ratings, movies, args.search_value,
+                        output)  # TODO - Not Implemented
 
-# Find user by user id
+
+# Find users by user ids
 def userById(ratings, movies, search_value, output):
     output.write("userId,moviesWatched,genres\n")
-    for id in args.search_value:
-        output.write(id+",")
+    for id in search_value:
+        output.write(str(id)+",")
         user_ratings = ratings.where(ratings.userId == id)
-        output.write(user_ratings.count()+",")
+        output.write(str(user_ratings.count())+",")
         user_movies = movies.join(
             user_ratings, user_ratings.movieId == movies.movieId, "inner").select(movies["*"])
         user_genres = user_movies.select(explode(user_movies.genres))
-        output.write(user_genres.distinct().count()+"\n")
+        output.write(str(user_genres.distinct().count())+"\n")
+
+# Find movies by ids
+def movieById(ratings, movies, search_value, output):
+    output.write("movieId,title,avgRating,views\n")
+    for id in search_value:
+        movie = movies.where(movies.movieId == id)
+        outputMovie(ratings, movie, output)
+
+# Find movies by titles
+def movieByName(ratings, movies, search_value, output):
+    output.write("movieId,title,avgRating,views\n")
+    for title in search_value:
+        movie = movies.where(movies.title == title)
+        outputMovie(ratings, movie, output)
+
+
+def outputMovie(ratings, movie, output):
+    output.write(str(movie.first().movieId)+",")
+    output.write(str(movie.first().title)+",")
+    movie_ratings = ratings.join(
+        movie, ratings.movieId == movie.movieId, "inner").select(ratings["*"])
+    output.write(str(movie_ratings.select(
+        mean(movie_ratings.rating)).first()['avg(rating)'])+",")
+    output.write(str(movie_ratings.count())+"\n")
+
 
 if __name__ == "__main__":
 
