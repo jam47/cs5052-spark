@@ -47,7 +47,7 @@ def parse_args():
                               ))
 
     # Search value
-    parser.add_argument("-v", "--value", action="store", dest="search_value",
+    parser.add_argument("-v", "--value", action="store", dest="search_value", nargs='+', # One or more arguments needs to be last argument
                         help="The value to search by")
 
     # Results length
@@ -102,6 +102,7 @@ def main(spark, args):
     if args.search_for == USERS_SF:
         if args.search_by == USERS_SB:
             # Find user by user id
+
             user_ratings = ratings.where(ratings.userId == args.search_value)
             output.write("Number of movies watched ->", user_ratings.count())
             user_movies = movies.join(
