@@ -1,0 +1,56 @@
++-------+--------------------+--------------------+-------+---------+
+|movieId|               title|              genres|ratings|avgRating|
++-------+--------------------+--------------------+-------+---------+
+|   3473|Jonah Who Will Be...|            [Comedy]|      2|      5.0|
+|   6818|Come and See (Idi...|        [Drama, War]|      2|      5.0|
+|     99|Heidi Fleiss: Hol...|       [Documentary]|      2|      5.0|
+|  78836|Enter the Void (2...|             [Drama]|      2|      5.0|
+|     53|     Lamerica (1994)|  [Adventure, Drama]|      2|      5.0|
+|   6442| Belle époque (1992)|   [Comedy, Romance]|      2|      5.0|
+|   1151| Lesson Faust (1994)|[Animation, Comed...|      2|      5.0|
+|    495|In the Realm of t...|             [Drama]|      1|      5.0|
+|  86237|  Connections (1978)|       [Documentary]|      1|      5.0|
+|  69211|Boy Eats Girl (2005)|    [Comedy, Horror]|      1|      5.0|
+| 107951|Hunting Elephants...|     [Comedy, Crime]|      1|      5.0|
+| 172793|Vovka in the King...|[Adventure, Anima...|      1|      5.0|
+|  84512|Girls About Town ...|            [Comedy]|      1|      5.0|
+| 134109|    Radio Day (2008)|            [Comedy]|      1|      5.0|
+|   5059|Little Dieter Nee...|       [Documentary]|      1|      5.0|
+| 112512|Colourful (Karafu...|[Animation, Drama...|      1|      5.0|
+|   3496|Madame Sousatzka ...|             [Drama]|      1|      5.0|
+| 175397|In the blue sea, ...|[Animation, Child...|      1|      5.0|
+|  33649|  Saving Face (2004)|[Comedy, Drama, R...|      1|      5.0|
+| 130978|Love and Pigeons ...|   [Comedy, Romance]|      1|      5.0|
+|   6021|American Friend, ...|[Crime, Drama, My...|      1|      5.0|
+|  26078|Advise and Consen...|             [Drama]|      1|      5.0|
+| 113829|One I Love, The (...|[Comedy, Drama, R...|      1|      5.0|
+| 136447|George Carlin: Yo...|            [Comedy]|      1|      5.0|
+|   5745|Four Seasons, The...|     [Comedy, Drama]|      1|      5.0|
+| 179135|Blue Planet II (2...|       [Documentary]|      1|      5.0|
+|  64501|Che: Part Two (2008)|        [Drama, War]|      1|      5.0|
+|    626|Thin Line Between...|            [Comedy]|      1|      5.0|
+| 147326|The Adventures of...|    [Crime, Mystery]|      1|      5.0|
+|  26073|Human Condition I...|        [Drama, War]|      1|      5.0|
+|   1349|Vampire in Venice...|            [Horror]|      1|      5.0|
+| 147330|Sherlock Holmes a...|             [Crime]|      1|      5.0|
+|  72692|Mickey's Once Upo...|[Animation, Comed...|      1|      5.0|
+|  47736|Chump at Oxford, ...|            [Comedy]|      1|      5.0|
+| 170597|A Plasticine Crow...|         [Animation]|      1|      5.0|
+|  67618|Strictly Sexual (...|[Comedy, Drama, R...|      1|      5.0|
+| 136355|Big Top Scooby-Do...|[Animation, Child...|      1|      5.0|
+| 171749|Death Note: Desu ...|[(no genres listed)]|      1|      5.0|
+| 139640|Ooops! Noah is Go...|         [Animation]|      1|      5.0|
+| 140627|Battle For Sevast...|[Drama, Romance, ...|      1|      5.0|
+| 102217|Bill Hicks: Revel...|            [Comedy]|      1|      5.0|
+|   6402|  Siam Sunset (1999)|            [Comedy]|      1|      5.0|
+| 149508|   Spellbound (2011)|   [Comedy, Romance]|      1|      5.0|
+|  69469|Garfield's Pet Fo...|         [Animation]|      1|      5.0|
+| 160644|  Indignation (2016)|             [Drama]|      1|      5.0|
+|   4402|Dr. Goldfoot and ...|            [Comedy]|      1|      5.0|
+|  73822|     Meantime (1984)|     [Comedy, Drama]|      1|      5.0|
+| 172583|Investigation Hel...|         [Animation]|      1|      5.0|
+|  76091|Mother (Madeo) (2...|[Crime, Drama, My...|      1|      5.0|
+| 140265|George Carlin: Ja...|            [Comedy]|      1|      5.0|
++-------+--------------------+--------------------+-------+---------+
+only showing top 50 rows
+

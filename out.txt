@@ -1,0 +1,65 @@
+Before join: 9742
+After join: 9742
+Total: 0
+Comedy:
+Before join: 3756
+After join: 3756
+Total: 0
++-------+--------------------+--------------------+-------+-------+
+|movieId|               title|              genres|movieId|ratings|
++-------+--------------------+--------------------+-------+-------+
+| 117630|Double Trouble (1...|[Action, Comedy, ...| 117630|      1|
+|   2088|       Popeye (1980)|[Adventure, Comed...|   2088|     18|
+|   2136|Nutty Professor, ...|    [Comedy, Sci-Fi]|   2136|     14|
+|   2294|         Antz (1998)|[Adventure, Anima...|   2294|     45|
+|    296| Pulp Fiction (1994)|[Comedy, Crime, D...|    296|    307|
+|   3210|Fast Times at Rid...|[Comedy, Drama, R...|   3210|     42|
+|   3606|  On the Town (1949)|[Comedy, Musical,...|   3606|      4|
+|   4032|Everlasting Piece...|            [Comedy]|   4032|      1|
+|    467|Live Nude Girls (...|            [Comedy]|    467|      1|
+|  50802|Because I Said So...|[Comedy, Drama, R...|  50802|      3|
+|    691|Mrs. Winterbourne...|   [Comedy, Romance]|    691|      3|
+|    829|Joe's Apartment (...|[Comedy, Fantasy,...|    829|      9|
+|  85022|    Hall Pass (2011)|            [Comedy]|  85022|      4|
+|  89864|        50/50 (2011)|     [Comedy, Drama]|  89864|     19|
+| 103819|  Coffee Town (2013)|            [Comedy]| 103819|      2|
+| 106542|Charlie Countryma...|[Action, Comedy, ...| 106542|      1|
+| 106594|     Red Flag (2012)|[Comedy, Drama, R...| 106594|      1|
+|    125|Flirting With Dis...|            [Comedy]|    125|     12|
+| 133281|Ricki and the Fla...|     [Comedy, Drama]| 133281|      1|
+|   1394|Raising Arizona (...|            [Comedy]|   1394|     58|
++-------+--------------------+--------------------+-------+-------+
+only showing top 20 rows
+
+
+Crime:
+Before join: 1199
+After join: 1199
+Total: 0
++-------+--------------------+--------------------+-------+-------+
+|movieId|               title|              genres|movieId|ratings|
++-------+--------------------+--------------------+-------+-------+
+| 117630|Double Trouble (1...|[Action, Comedy, ...| 117630|      1|
+|    296| Pulp Fiction (1994)|[Comedy, Crime, D...|    296|    307|
+|   2110|Dead Men Don't We...|[Comedy, Crime, T...|   2110|     18|
+|  32392|800 Bullets (800 ...|[Comedy, Crime, D...|  32392|      1|
+|   5613|      8 Women (2002)|[Comedy, Crime, M...|   5613|      3|
+|   5657|    Flashback (1990)|[Action, Adventur...|   5657|      1|
+|  58559|Dark Knight, The ...|[Action, Crime, D...|  58559|    149|
+|   6797|        Bugsy (1991)|      [Crime, Drama]|   6797|      1|
+|   7362| Taking Lives (2004)|[Crime, Drama, Th...|   7362|      4|
+|   2917|    Body Heat (1981)|   [Crime, Thriller]|   2917|     10|
+|  69306|Taking of Pelham ...|[Crime, Drama, Th...|  69306|      6|
+|   7056|Public Enemy, The...|[Action, Crime, D...|   7056|      2|
+| 147330|Sherlock Holmes a...|             [Crime]| 147330|      1|
+|   1953|French Connection...|[Action, Crime, T...|   1953|     39|
+|   3266|Man Bites Dog (C'...|[Comedy, Crime, D...|   3266|      6|
+|  44199|   Inside Man (2006)|[Crime, Drama, Th...|  44199|     40|
+|   6143|Trail of the Pink...|     [Comedy, Crime]|   6143|      2|
+|   1500|Grosse Pointe Bla...|[Comedy, Crime, R...|   1500|     59|
+|   3895| Watcher, The (2000)|   [Crime, Thriller]|   3895|      1|
+|   4262|     Scarface (1983)|[Action, Crime, D...|   4262|     67|
++-------+--------------------+--------------------+-------+-------+
+only showing top 20 rows
+
+
