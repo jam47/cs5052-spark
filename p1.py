@@ -56,7 +56,7 @@ def parse_args():
                               ))
 
     # Search value
-    parser.add_argument("-v", "--value", action="store", dest="search_value", nargs='+',  # TODO - One or more arguments needs to be last argument
+    parser.add_argument("-v", "--value", action="store", dest="search_value", nargs='+',
                         help="The value to search by")
 
     # Results length
@@ -179,7 +179,6 @@ def users_by_ids(ratings, movies, ids, output):
     # Display dataframe to output
     with redirect_stdout(output):
         users.show(len(ids))
-
 
 # ===================================
 # ======= FIND MOVIES BY IDS ========
@@ -318,6 +317,22 @@ def output_movies(ratings, movies, out_count, output):
     with redirect_stdout(output):
         movies_agg.show(out_count)
 
+# ===================================
+# ===== OUTPUT DATAFRAME AS CSV =====
+# ===================================
+def output_csv(df, output):
+    for i in range(len(df.columns)):
+        output.write(df.columns[i])
+        if i < len(df.columns) - 1:
+            output.write(',') # all but last item
+    output.write('\n')
+    rows = df.collect()
+    for row in rows:
+        for i in range(len(df.columns)):
+            output.write(str(row[df.columns[i]]))
+            if i < len(df.columns) - 1:
+                output.write(',') # all but last item
+        output.write('\n')
 
 # ===================================
 # ========== PROGRAM SETUP ==========
