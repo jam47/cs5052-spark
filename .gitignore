@@ -58,7 +58,7 @@ data/
 !*.bmp
 !*.jpg
 #!*.txt
-#!*.csv
+!*.csv
 !*.yml
 
 #README
