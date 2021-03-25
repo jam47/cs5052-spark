@@ -63,6 +63,10 @@ def parse_args():
     parser.add_argument("-c", "--count", action="store", dest="result_count", default=10, type=int,
                         help="The number of results to return")
 
+    # Results as csv list
+    parser.add_argument("-l", "--list", action="store_true", dest="csv_out",
+                        help="Output result as list (CSV)")
+
     # Output file
     parser.add_argument("-o", "--output", action="store", dest="outfile",
                         help="The output filepath for the program. If no file value is supplied, output will be written to stdout.")
@@ -111,40 +115,44 @@ def main(spark, args):
     if args.search_for == USERS_SF:
         if args.search_by == USERS_SB:
             # Search for users by IDs
-            users_by_ids(ratings, movies, args.search_value, output)
+            users_by_ids(ratings, movies, args.search_value,
+                         args.csv_out, output)
 
     elif args.search_for == MOVIES_SF:
         if args.search_by == MOVIE_IDS_SB:
             # Search for movies by IDs
-            movies_by_ids(ratings, movies, args.search_value, output)
+            movies_by_ids(ratings, movies, args.search_value,
+                          args.csv_out, output)
 
         elif args.search_by == MOVIE_NAMES_SB:
             # Search for movies by names
-            movies_by_names(ratings, movies, args.search_value,
-                            output)  # TODO - Not Implemented (looks okay to me!)
+            movies_by_names(ratings, movies, args.search_value, args.csv_out,
+                            output)
 
         elif args.search_by == GENRES_SB:
             # Search for movies by genres
             movies_by_genres(ratings, movies, args.search_value,
-                             args.result_count, output)
+                             args.result_count, args.csv_out, output)
 
         elif args.search_by == USERS_SB:
             # Search for movies by user IDs
             movies_by_user_ids(
-                ratings, movies, args.search_value, args.result_count, output)
+                ratings, movies, args.search_value, args.result_count, args.csv_out, output)
 
         elif args.search_by == RATING_SB:
             # List movies by highest rating
-            movies_by_rating(ratings, movies, args.result_count, output)
+            movies_by_rating(ratings, movies, args.result_count,
+                             args.csv_out, output)
 
         elif args.search_by == WATCHES_SB:
-            movies_by_watches(ratings, movies, args.result_count, output)
+            movies_by_watches(
+                ratings, movies, args.result_count, args.csv_out, output)
 
 
 # ===================================
 # ======== FIND USERS BY IDS ========
 # ===================================
-def users_by_ids(ratings, movies, ids, output):
+def users_by_ids(ratings, movies, ids, csv_out, output):
     # Get ratings associated with users
     user_ratings = ratings.filter(ratings.userId.isin(ids))
 
@@ -176,36 +184,41 @@ def users_by_ids(ratings, movies, ids, output):
     # Replace null values with 0
     users = users.na.fill(0, ["moviesWatched", "genresWatched"])
 
-    # Display dataframe to output
-    with redirect_stdout(output):
-        users.show(len(ids))
+    if csv_out:
+        output_csv(users, output)
+    else:
+        # Display dataframe to output
+        with redirect_stdout(output):
+            users.show(len(ids))
 
 # ===================================
 # ======= FIND MOVIES BY IDS ========
 # ===================================
-def movies_by_ids(ratings, movies, ids, output):
+
+
+def movies_by_ids(ratings, movies, ids, csv_out, output):
     # Find movies matching given IDs
     filtered_movies = movies.where(movies.movieId.isin(ids))
 
     # Print to output
-    output_movies(ratings, filtered_movies, len(ids), output)
+    output_movies(ratings, filtered_movies, len(ids), csv_out, output)
 
 
 # ===================================
 # ====== FIND MOVIES BY TITLES ======
 # ===================================
-def movies_by_names(ratings, movies, titles, output):
+def movies_by_names(ratings, movies, titles, csv_out, output):
     # Find movies matching given titles
     filtered_movies = movies.where(movies.title.isin(titles))
 
     # Print to output
-    output_movies(ratings, filtered_movies, len(titles), output)
+    output_movies(ratings, filtered_movies, len(titles), csv_out, output)
 
 
 # ===================================
 # ===== FIND MOVIES BY USER IDS =====
 # ===================================
-def movies_by_user_ids(ratings, movies, user_ids, out_count, output):
+def movies_by_user_ids(ratings, movies, user_ids, out_count, csv_out, output):
     # Find ratings made by given users
     filtered_ratings = ratings.where(ratings.userId.isin(
         user_ids))
@@ -225,14 +238,14 @@ def movies_by_user_ids(ratings, movies, user_ids, out_count, output):
         this_user_movies = this_user_movie_ids.join(movies, "movieId")
 
         # Print movies
-        output_movies(ratings, this_user_movies, out_count, output)
+        output_movies(ratings, this_user_movies, out_count, csv_out, output)
         output.write("\n")
 
 
 # ===================================
 # ====== FIND MOVIES BY GENRES ======
 # ===================================
-def movies_by_genres(ratings, movies, genres, out_count, output):
+def movies_by_genres(ratings, movies, genres, out_count, csv_out, output):
     for genre in genres:
         output.write(genre + ":\n")
 
@@ -241,14 +254,14 @@ def movies_by_genres(ratings, movies, genres, out_count, output):
             movies.genres, str(genre)))
 
         # Print movies
-        output_movies(ratings, genre_movies, out_count, output)
-        output.write("\n")
+        output_movies(ratings, genre_movies, out_count, csv_out, output)
+        output.write("\n")  # TODO - Do we need this?
 
 
 # ===================================
 # ====== LIST MOVIES BY RATING ======
 # ===================================
-def movies_by_rating(ratings, movies, out_count, output):
+def movies_by_rating(ratings, movies, out_count, csv_out, output):
     # Find aggregate movie data (count & average)
     movies_agg = aggregate_movies(ratings, movies)
 
@@ -256,25 +269,31 @@ def movies_by_rating(ratings, movies, out_count, output):
     movies_agg = movies_agg.sort(
         col("avgRating").desc(), col("ratings").desc())
 
-    # Print to output
-    with redirect_stdout(output):
-        movies_agg.show(out_count)
+    if csv_out:
+        output_csv(movies_agg, output)
+    else:
+        # Print to output
+        with redirect_stdout(output):
+            movies_agg.show(out_count)
 
 
 # ===================================
 # ====== LIST MOVIES BY WATCHES =====
 # ===================================
-def movies_by_watches(ratings, movies, out_count, output):
+def movies_by_watches(ratings, movies, out_count, csv_out, output):
     # Find aggregate movie data (count & average)
     movies_agg = aggregate_movies(ratings, movies)
 
     # Order by descending view count
     movies_agg = movies_agg.sort(
-        col("ratings").desc(), col("avgRating").desc())
+        col("ratings").desc(), col("avgRating").desc())  # TODO - Isn't this still using rating?
 
-    # Print to output
-    with redirect_stdout(output):
-        movies_agg.show(out_count)
+    if csv_out:
+        output_csv(movies_agg, output)
+    else:
+        # Print to output
+        with redirect_stdout(output):
+            movies_agg.show(out_count)
 
 
 # ===================================
@@ -309,30 +328,36 @@ def aggregate_movies(ratings, movies):
 # ===================================
 # ====== PRINT MOVIES DATAFRAME =====
 # ===================================
-def output_movies(ratings, movies, out_count, output):
+def output_movies(ratings, movies, out_count, csv_out, output):
     # Find aggregate data (count & average)
     movies_agg = aggregate_movies(ratings, movies)
 
-    # Display dataframe to output
-    with redirect_stdout(output):
-        movies_agg.show(out_count)
+    if csv_out:
+        output_csv(movies_agg, output)
+    else:
+        # Display dataframe to output
+        with redirect_stdout(output):
+            movies_agg.show(out_count)
 
 # ===================================
 # ===== OUTPUT DATAFRAME AS CSV =====
 # ===================================
+
+
 def output_csv(df, output):
     for i in range(len(df.columns)):
         output.write(df.columns[i])
         if i < len(df.columns) - 1:
-            output.write(',') # all but last item
+            output.write(',')  # all but last item
     output.write('\n')
     rows = df.collect()
     for row in rows:
         for i in range(len(df.columns)):
             output.write(str(row[df.columns[i]]))
             if i < len(df.columns) - 1:
-                output.write(',') # all but last item
+                output.write(',')  # all but last item
         output.write('\n')
+
 
 # ===================================
 # ========== PROGRAM SETUP ==========
