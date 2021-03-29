@@ -121,24 +121,6 @@ def df_to_csv(df, csv_out):
     df.write.format("csv").mode("overwrite").option(
         "header", True).save(csv_out)
 
-
-# ===================================
-# ============ NAME GUARD ===========
-# ===================================
-
-if __name__ == "__main__":
-    # Configure Spark Job
-    spark = SparkSession.builder.master(
-        "local").appName(APP_NAME).getOrCreate()
-    spark.sparkContext.setLogLevel("ERROR")
-
-    # Parse arguments
-    args = parse_args()
-
-    # Execute program
-    main(spark, args)
-
-
 # ===================================
 # =========== MAIN METHOD ===========
 # ===================================
@@ -222,7 +204,7 @@ def main(spark, args):
             # Search for movies by IDs & display
             result = movies_by_ids(
                 spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.out_count, output)
+            output_dataframe(result, args.result_count, output)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -232,7 +214,7 @@ def main(spark, args):
             # Search for movies by names & display
             result = movies_by_titles(
                 spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.out_count, output)
+            output_dataframe(result, args.result_count, output)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -242,7 +224,7 @@ def main(spark, args):
             # Search for movies by genres & display
             result = movies_by_genres(
                 spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.out_count, output)
+            output_dataframe(result, args.result_count, output)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -267,13 +249,13 @@ def main(spark, args):
 
                 # Display
                 output.write("Movies for user ID " + user_id + ":\n")
-                output_dataframe(this_user_movies, args.out_count, output)
+                output_dataframe(this_user_movies, args.result_count, output)
                 output.write("\n")
 
         elif args.search_by == YEARS_SB:
             # Search for movies by year & display
             result = movies_by_years(spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.out_count, output)
+            output_dataframe(result, args.result_count, output)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -282,7 +264,7 @@ def main(spark, args):
         elif args.search_by == RATING_SB:
             # Get movies sorted by average rating & display
             result = movies_sorted_rating(spark, ratings, movies)
-            output_dataframe(result, args.out_count, output)
+            output_dataframe(result, args.result_count, output)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -291,8 +273,24 @@ def main(spark, args):
         elif args.search_by == WATCHES_SB:
             # Get movies sorted by number of ratings & display
             result = movies_sorted_watches(spark, ratings, movies)
-            output_dataframe(result, args.out_count, output)
+            output_dataframe(result, args.result_count, output)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
                 df_to_csv(result, args.csv_out)
+
+# ===================================
+# ============ NAME GUARD ===========
+# ===================================
+
+if __name__ == "__main__":
+    # Configure Spark Job
+    spark = SparkSession.builder.master(
+        "local").appName(APP_NAME).getOrCreate()
+    spark.sparkContext.setLogLevel("ERROR")
+
+    # Parse arguments
+    args = parse_args()
+
+    # Execute program
+    main(spark, args)
