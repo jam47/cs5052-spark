@@ -170,12 +170,7 @@ def main(spark, args):
     if args.search_for == USERS_SF:
         if args.search_by == USERS_SB:
             # Search for users by IDs & display all
-            users = users_by_ids(spark, ratings, movies, args.search_value)
-            output_dataframe(users, users.count(), output)
-
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(users, args.csv_out)
+            result = users_by_ids(spark, ratings, movies, args.search_value)
 
     elif args.search_for == FAV_GENRES_SF:
         if args.search_by == USERS_SB:
@@ -197,7 +192,7 @@ def main(spark, args):
 
                 # Output user's scores
                 output.write("\nUser " + user_id + "'s scores:")
-                output_dataframe(user_scores, )
+                output_dataframe(user_scores, args.result_count, output)
                 output.write("\n")
 
     elif args.search_for == MOVIES_SF:
@@ -205,31 +200,16 @@ def main(spark, args):
             # Search for movies by IDs & display
             result = movies_by_ids(
                 spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.result_count, output)
-
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(result, args.csv_out)
 
         elif args.search_by == MOVIE_NAMES_SB:
             # Search for movies by names & display
             result = movies_by_titles(
                 spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.result_count, output)
-
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(result, args.csv_out)
 
         elif args.search_by == GENRES_SB:
             # Search for movies by genres & display
             result = movies_by_genres(
                 spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.result_count, output)
-
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(result, args.csv_out)
 
         elif args.search_by == USERS_SB:
             # Search for movies by user IDs
@@ -256,29 +236,22 @@ def main(spark, args):
         elif args.search_by == YEARS_SB:
             # Search for movies by year & display
             result = movies_by_years(spark, ratings, movies, args.search_value)
-            output_dataframe(result, args.result_count, output)
-
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(result, args.csv_out)
 
         elif args.search_by == RATING_SB:
             # Get movies sorted by average rating & display
             result = movies_sorted_rating(spark, ratings, movies)
-            output_dataframe(result, args.result_count, output)
-
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(result, args.csv_out)
 
         elif args.search_by == WATCHES_SB:
             # Get movies sorted by number of ratings & display
             result = movies_sorted_watches(spark, ratings, movies)
-            output_dataframe(result, args.result_count, output)
 
-            if args.csv_out is not None:
-                # Print to CSV if requested
-                df_to_csv(result, args.csv_out)
+        
+    if result is not None:
+        output_dataframe(result, args.result_count, output)
+
+        if args.csv_out is not None:
+            # Print to CSV if requested
+            df_to_csv(result, args.csv_out)
 
 # ===================================
 # ============ NAME GUARD ===========
