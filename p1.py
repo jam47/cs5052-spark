@@ -125,6 +125,7 @@ def df_to_csv(df, csv_out):
 # =========== MAIN METHOD ===========
 # ===================================
 
+
 def main(spark, args):
 
     # Open outfile
@@ -282,6 +283,7 @@ def main(spark, args):
 # ===================================
 # ============ NAME GUARD ===========
 # ===================================
+
 
 if __name__ == "__main__":
     # Configure Spark Job
