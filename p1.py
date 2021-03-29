@@ -20,7 +20,7 @@ from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
 
 # Env variables
 APP_NAME = "CS5052 P1 - Apache Spark"
-DATASET_FILEPATH = "data/ml-latest-small-modified/"
+DATASET_FILEPATH = "data/ml-latest-small/"
 
 # Search for keys
 USERS_SF = "users"
