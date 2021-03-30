@@ -2,12 +2,11 @@
 
 ## TODO
 
-- Swap function arguments with `args` variable
-- Split functions into `user`, `movies` and `util` file
-  - Could also maybe split by task in the spec?
+- Swap function arguments with `args` variable (DONE)
+- Split functions into `user`, `movies` and `util` file (DONE)
 - Re-add csv output option properly
   - ouput to `stdout` by default, optionally include `csv` output with pyspark function
-- Print executed command to output
+- Print executed command to output (DONE)
 
 ## NOTES FOR PART 2.2
 
