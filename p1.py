@@ -166,6 +166,7 @@ def main(spark, args):
     ratings = ratings.withColumn(
         "rating", ratings.rating.cast(types.FloatType()))
 
+    std_output = True  # Output using standard method
     # Perform search
     if args.search_for == USERS_SF:
         if args.search_by == USERS_SB:
@@ -177,6 +178,8 @@ def main(spark, args):
             # Get users' genre scores
             scores = user_genre_scores(
                 spark, ratings, movies, args.search_value)
+
+            std_output = False  # Output non standard
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -213,8 +216,10 @@ def main(spark, args):
 
         elif args.search_by == USERS_SB:
             # Search for movies by user IDs
-            users_movies = movies_by_user_ids(
-                ratings, movies, args.search_value)
+            users_movies = movies_by_user_ids(spark,
+                                              ratings, movies, args.search_value)
+
+            std_output = False  # Output non standard
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -245,8 +250,7 @@ def main(spark, args):
             # Get movies sorted by number of ratings & display
             result = movies_sorted_watches(spark, ratings, movies)
 
-        
-    if result is not None:
+    if std_output:
         output_dataframe(result, args.result_count, output)
 
         if args.csv_out is not None:
