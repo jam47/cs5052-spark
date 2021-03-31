@@ -5,11 +5,9 @@ from pyspark.sql.functions import sum as spark_sum
 from pyspark.sql.functions import round as spark_round
 import argparse
 import sys
-from datetime import date
+from datetime import datetime
 from contextlib import redirect_stdout
-# from user_searches
-# import movie_searches
-from searches.user_searches import users_by_ids, user_genre_scores
+from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison, user_cluster_model
 from searches.movie_searches import movies_by_genres, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
 from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
 
@@ -21,12 +19,17 @@ from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
 # Env variables
 APP_NAME = "CS5052 P1 - Apache Spark"
 DATASET_FILEPATH = "data/ml-latest-small/"
+MAX_K_AUTO_MEANS = 10
+GENRES = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime",
+          "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical",
+          "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western"]
 
 # Search for keys
 USERS_SF = "users"
 MOVIES_SF = "movies"
 FAV_GENRES_SF = "favourite-genres"
 COMPARE_USERS_SF = "compare-users"
+CLUSTER_USERS_SF = "cluster-users"
 
 # Search by keys
 USERS_SB = "user-ids"
@@ -53,6 +56,7 @@ def parse_args():
                               "\n\t- " + USERS_SF + ": Search for users"
                               "\n\t- " + MOVIES_SF + ": Search for movies"
                               "\n\t- " + FAV_GENRES_SF + ": Search for users' favourite genres"
+                              "\n\t- " + CLUSTER_USERS_SF + ": Cluster users"
                               ))
 
     # Search by
@@ -81,8 +85,10 @@ def parse_args():
                         help="The number of results to return")
 
     # Results as csv list
-    parser.add_argument("-l", "--csv", dest="csv_out",
+    parser.add_argument("-l", "--list", dest="csv_out",
                         help="Output result as CSV to given filepath")
+
+    # TODO - Add optional k argument for fixing k-means
 
     # Output file
     parser.add_argument("-o", "--output", action="store", dest="outfile",
@@ -121,10 +127,10 @@ def df_to_csv(df, csv_out):
     df.write.format("csv").mode("overwrite").option(
         "header", True).save(csv_out)
 
+
 # ===================================
 # =========== MAIN METHOD ===========
 # ===================================
-
 
 def main(spark, args):
 
@@ -136,9 +142,10 @@ def main(spark, args):
 
     # Print log header & given command
     output.write((
-        "Program: 170002815 & 170001567's CS5052 Submission"
-        "\nDate: " + date.today().strftime("%d.%m.%Y") +
-        "\nCommand: " + " ".join(sys.argv) + "\n\n"
+        "Program: 170002815 & 170001567's CS5052 Submission (p1.py)"
+        "\nCommand: " + " ".join(sys.argv) +
+        "\nDate: " + datetime.now().strftime("%Y.%m.%d %H:%M") +
+        "\n\n"
     ))
 
     # Read dataset
@@ -166,6 +173,9 @@ def main(spark, args):
     ratings = ratings.withColumn(
         "rating", ratings.rating.cast(types.FloatType()))
 
+    # TODO - Remove
+    user_cluster_model(spark, ratings, movies, 5, GENRES)
+
     std_output = True  # Output using standard method
     # Perform search
     if args.search_for == USERS_SF:
@@ -176,7 +186,7 @@ def main(spark, args):
     elif args.search_for == FAV_GENRES_SF:
         if args.search_by == USERS_SB:
             # Get users' genre scores
-            scores = user_genre_scores(
+            scores = formatted_user_genre_scores(
                 spark, ratings, movies, args.search_value)
 
             std_output = False  # Output non standard
@@ -197,6 +207,17 @@ def main(spark, args):
                 output.write("\nUser " + user_id + "'s scores:")
                 output_dataframe(user_scores, args.result_count, output)
                 output.write("\n")
+
+    elif args.search_for == COMPARE_USERS_SF:
+        to_output = temp = user_taste_comparison(
+            spark, ratings, movies, args.search_value)
+        output.write(to_output)
+
+    elif args.search_for == CLUSTER_USERS_SF:
+        args.k = 2  # TODO - Remove
+        to_output = temp = user_cluster_model(
+            spark, ratings, movies, args.k, GENRES)
+        output.write(to_output)
 
     elif args.search_for == MOVIES_SF:
         if args.search_by == MOVIE_IDS_SB:
@@ -250,6 +271,7 @@ def main(spark, args):
             # Get movies sorted by number of ratings & display
             result = movies_sorted_watches(spark, ratings, movies)
 
+    # TODO - Function call instead?
     if std_output:
         output_dataframe(result, args.result_count, output)
 
@@ -257,12 +279,13 @@ def main(spark, args):
             # Print to CSV if requested
             df_to_csv(result, args.csv_out)
 
+
 # ===================================
 # ============ NAME GUARD ===========
 # ===================================
 
-
 if __name__ == "__main__":
+
     # Configure Spark Job
     spark = SparkSession.builder.master(
         "local").appName(APP_NAME).getOrCreate()

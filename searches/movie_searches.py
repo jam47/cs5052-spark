@@ -6,17 +6,11 @@ def movies_by_ids(spark, ratings, movies, movie_ids):
 
     return movies.where(movies.movieId.isin(movie_ids))
 
-    # Print to output
-    # output_movies(ratings, filtered_movies, len(ids), csv_out, output)
-
 
 def movies_by_titles(spark, ratings, movies, titles):
     """ Returns a dataframe containing movies with names similar to those in titles """
 
     return movies.where(movies.title.rlike("|".join(titles)))
-
-    # Print to output
-    # output_movies(ratings, filtered_movies, len(titles), csv_out, output)
 
 
 def movies_by_user_ids(spark, ratings, movies, user_ids):
