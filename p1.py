@@ -7,9 +7,10 @@ import argparse
 import sys
 from datetime import datetime
 from contextlib import redirect_stdout
-from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison, user_cluster_model
+from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison
 from searches.movie_searches import movies_by_genres, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
 from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
+from searches.cluster_searches import user_cluster_model
 
 
 # ===================================
