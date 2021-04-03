@@ -18,9 +18,9 @@ from searches.cluster_searches import user_cluster_model, user_cluster_model_aut
 # ===================================
 
 # Environment variables
-SPARK_NAME = "CS5052 P1 - Apache Spark"
-APP_NAME = "170002815 & 170001567 - CS5052"  # Name of the application
-DATASET_FILEPATH = "data/ml-latest-small/"   # Location of data directory
+SPARK_NAME = "CS5052 P1 - Apache Spark"             # Name of the spark app
+APP_NAME = "170002815 & 170001567 - CS5052"         # Name of the program
+DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"  # Location of data directory
 
 # Dataset constants
 GENRES = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime",
@@ -101,30 +101,47 @@ def parse_args():
                         help=("Automatically determine the values of k."
                               "Use the '-k' argument to specify the maximum."))
 
+    # Input directory
+    parser.add_argument("-i", "--input", action="store", dest="input_dirpath",
+                        default=DEFAULT_DATASET_FILEPATH,
+                        help="The relative directorypath for the data to be read.")
+
     # Output file
     parser.add_argument("-o", "--output", action="store", dest="outfile",
-                        help=("The output filepath for the program."
+                        help=("The relative filepath for the program's output to be written to."
                               "If no file value is supplied, output will be written to stdout."))
 
     # Parse args
     args = parser.parse_args()
 
     # Validate for-by search combinations
-    if args.search_for == USERS_SF and args.search_by != USERS_SB:
+    if ((args.search_for == USERS_SF
+         or args.search_for == FAV_GENRES_SF
+         or args.search_for == COMPARE_USERS_SF
+         or args.search_for == CLUSTER_USERS_SF)
+            and args.search_by != USERS_SB):
+
+        print("Invalid Arguments: Invalid search combination\n")
         parser.print_help()
         sys.exit(0)
 
-    if args.search_for == FAV_GENRES_SF and args.search_by != USERS_SB:
+    # Enforce search value for certain search-bys
+    if ((args.search_by == USERS_SB
+         or args.search_by == MOVIE_IDS_SB
+         or args.search_by == MOVIE_NAMES_SB
+         or args.search_by == YEARS_SB
+         or args.search_by == GENRES_SB)
+            and len(args.search_value) == 0):
+
+        print("Invalid Arguments: At least one search value must be provided")
         parser.print_help()
         sys.exit(0)
 
-    # TODO - Comment here
+    # k-means constraints
     if args.k <= 1:
+        print("Invalid Arguments: k must be 2 or more for k-means clustering\n")
         parser.print_help()
         sys.exit(0)
-
-    # TODO - Enforce value for certain searches
-    # TODO - Or return on search completion & print usage at end... maybe
 
     return args
 
@@ -177,8 +194,8 @@ def main(spark, args):
     ))
 
     # Read dataset
-    ratings = spark.read.csv(DATASET_FILEPATH + "/ratings.csv", header=True)
-    movies = spark.read.csv(DATASET_FILEPATH + "/movies.csv", header=True)
+    ratings = spark.read.csv(args.input_dirpath + "/ratings.csv", header=True)
+    movies = spark.read.csv(args.input_dirpath + "/movies.csv", header=True)
 
     ratings = ratings.alias('ratings')
     movies = movies.alias('movies')
@@ -196,7 +213,7 @@ def main(spark, args):
     ratings = ratings.withColumn(
         "rating", ratings.rating.cast(types.FloatType()))
 
-    # Persist dataset
+    # Cache dataframes to avoid reloading
     ratings.cache()
     movies.cache()
 
