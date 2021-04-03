@@ -1,3 +1,4 @@
+from pyspark.sql import types
 from pyspark.sql.functions import countDistinct, explode, expr, col, count, mean, stddev, row_number, first, collect_list, monotonically_increasing_id
 from pyspark.sql.functions import sum as spark_sum
 from pyspark.sql.functions import round as spark_round
@@ -29,11 +30,15 @@ def users_by_ids(spark, ratings, movies, user_ids):
         "genres")).withColumnRenamed("count(genres)", "genresWatched")
 
     # Summarise aggregations in new users datatframe via joins
-    users = spark.createDataFrame(user_ids, "string").toDF("userId")
+    users = spark.createDataFrame(user_ids, types.StringType()).toDF("userId")
     users = users.join(user_ratings_agg, users.userId == user_ratings_agg.userId, "left")\
         .drop(user_ratings_agg.userId)\
         .join(user_movies_agg, users.userId == user_movies_agg.userId, "left")\
         .drop(user_movies_agg.userId)
+
+    # Sort by ID
+    users = users.withColumn("userId", users.userId.cast(types.IntegerType()))\
+        .sort(col("userId").asc())
 
     # Replace null values
     users = users.na.fill(0, ["moviesWatched", "genresWatched"])
@@ -57,7 +62,7 @@ def user_genre_scores(spark, ratings, movies, user_ids):
 
     # Create dataframe for output
     user_genre_scores = spark.createDataFrame(
-        user_ids, "string").toDF("userId")
+        user_ids, types.StringType()).toDF("userId")
 
     # Find sum and count of ratings for each user
     scores = movies_ratings.groupBy('userId', 'genre').agg(

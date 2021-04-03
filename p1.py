@@ -8,7 +8,7 @@ import sys
 from datetime import datetime
 from contextlib import redirect_stdout
 from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison
-from searches.movie_searches import movies_by_genres, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
+from searches.movie_searches import movies_by_genre, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
 from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
 from searches.cluster_searches import user_cluster_model, user_cluster_model_auto_k, get_cluster_model_centroids, get_cluster_model_silhouette, get_users_cluster_predictions
 
@@ -19,8 +19,11 @@ from searches.cluster_searches import user_cluster_model, user_cluster_model_aut
 
 # Environment variables
 SPARK_NAME = "CS5052 P1 - Apache Spark"             # Name of the spark app
-APP_NAME = "170002815 & 170001567 - CS5052"         # Name of the program
-DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"  # Location of data directory
+APP_NAME = "170002815 & 170001567 - CS5052 P1"      # Name of the program
+DEFAULT_DATASET_FILEPATH = "data/ml-latest/"        # Location of data directory
+# Location of data directory
+# DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"
+
 
 # Dataset constants
 GENRES = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime",
@@ -85,7 +88,7 @@ def parse_args():
                         help="The value to search by")
 
     # Results length
-    parser.add_argument("-c", "--count", action="store", dest="result_count", default=10, type=int,
+    parser.add_argument("-c", "--count", action="store", dest="out_count", default=10, type=int,
                         help="The number of results to return")
 
     # Results as csv list
@@ -133,13 +136,18 @@ def parse_args():
          or args.search_by == GENRES_SB)
             and len(args.search_value) == 0):
 
-        print("Invalid Arguments: At least one search value must be provided")
+        print("Invalid Arguments: At least one search value (-v) must be provided")
         parser.print_help()
         sys.exit(0)
 
-    # k-means constraints
+    # Other argument validation
     if args.k <= 1:
-        print("Invalid Arguments: k must be 2 or more for k-means clustering\n")
+        print("Invalid Arguments: k (-k) must be 2 or more for k-means clustering\n")
+        parser.print_help()
+        sys.exit(0)
+
+    if args.out_count <= 0:
+        print("Invalid Arguments: count (-c) must be positive\n")
         parser.print_help()
         sys.exit(0)
 
@@ -189,6 +197,7 @@ def main(spark, args):
     output.write((
         "Program: " + APP_NAME +
         "\nCommand: " + " ".join(sys.argv) +
+        "\nData directory: " + args.input_dirpath +
         "\nDate: " + datetime.now().strftime("%Y.%m.%d %H:%M") +
         "\n\n"
     ))
@@ -210,8 +219,9 @@ def main(spark, args):
         "substring(title, 1, length(title)-7)"))
 
     # Cast numerical columns
-    ratings = ratings.withColumn(
-        "rating", ratings.rating.cast(types.FloatType()))
+    ratings = ratings\
+        .withColumn("rating", ratings.rating.cast(types.FloatType()))\
+        .withColumn("userId", ratings.userId.cast(types.IntegerType()))
 
     # Cache dataframes to avoid reloading
     ratings.cache()
@@ -244,7 +254,7 @@ def main(spark, args):
 
                 # Output user's scores
                 output.write("\nUser " + user_id + "'s scores:")
-                df_to_output(user_scores, args.result_count, output)
+                df_to_output(user_scores, args.out_count, output)
                 output.write("\n")
 
     elif args.search_for == COMPARE_USERS_SF:
@@ -304,10 +314,13 @@ def main(spark, args):
             output_dataframe(result, output, args.out_count, args.csv_out)
 
         elif args.search_by == GENRES_SB:
-            # Search for movies by genres & display
-            result = movies_by_genres(
-                spark, ratings, movies, args.search_value)
-            output_dataframe(result, output, args.out_count, args.csv_out)
+            # Search for movies by each genre & output
+            for genre in args.search_value:
+                result = movies_by_genre(
+                    spark, ratings, movies, genre)
+
+                output.write("\nMovies in " + genre + " genre:\n")
+                output_dataframe(result, output, args.out_count, args.csv_out)
 
         elif args.search_by == USERS_SB:
             # Search for movies by user IDs
@@ -328,13 +341,16 @@ def main(spark, args):
 
                 # Display
                 output.write("Movies for user ID " + user_id + ":\n")
-                df_to_output(this_user_movies, args.result_count, output)
+                df_to_output(this_user_movies, args.out_count, output)
                 output.write("\n")
 
         elif args.search_by == YEARS_SB:
-            # Search for movies by year & display
-            result = movies_by_years(spark, ratings, movies, args.search_value)
-            output_dataframe(result, output, args.out_count, args.csv_out)
+            # Search for movies by each year & display
+            for year in args.search_value:
+                movies_in_year = movies_by_years(spark, ratings, movies, year)
+                output.write("Movies in " + year + ":\n")
+                output_dataframe(movies_in_year, output,
+                                 args.out_count, args.csv_out)
 
         elif args.search_by == RATING_SB:
             # Get movies sorted by average rating & display
