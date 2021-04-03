@@ -1,21 +1,23 @@
-from pyspark.sql.functions import col, first, monotonically_increasing_id
+from pyspark.sql.functions import col, first, lit
 from pyspark.ml.clustering import KMeans
 from pyspark.ml.evaluation import ClusteringEvaluator
 from pyspark.ml.feature import VectorAssembler
 from searches.user_searches import user_genre_scores
 
 
-def user_cluster_model(spark, ratings, movies, k, genres):
+def get_cluster_model_silhouette(cluster_model):
+    """ Returns the silhouette score for a given model for a given dataframe.
+    Model must be generated using user_cluster_model function """
 
-    # TODO - Return center point locations & number of users per cluster
-    # TODO - Take in user_ids and return center points which they are in
-    # TODO - Return "nearby" users in same cluster
-    """ Returns a clustering model for users' genre preferences """  # TODO
+    return cluster_model.sihlouette_score
+
+
+def user_cluster_model(spark, ratings, movies, k, genres):
+    """ Returns a clustering model for users' genre preferences """
 
     # Get scores for all users & sort alphabetically
-    # TODO - Remove limit
-    all_user_ids = ratings.select("userId").limit(
-        1000).distinct().rdd.flatMap(lambda x: x).collect()
+    all_user_ids = ratings.select(
+        "userId").distinct().rdd.flatMap(lambda x: x).collect()
 
     # Calculate scores for each user
     scores = user_genre_scores(spark, ratings, movies, all_user_ids)\
@@ -28,35 +30,52 @@ def user_cluster_model(spark, ratings, movies, k, genres):
     # Find genres in dataset used
     genres_in_scores = scores.drop("userId").columns
     if "(no genres listed)" in scores.columns:
-        genres_in_scores.drop("(no genres listed)")
+        scores.drop("(no genres listed)")
 
     # Train a k-means model
     scores = VectorAssembler(
         inputCols=genres_in_scores, outputCol="features").transform(scores)
-    kmeans_model = KMeans().setK(3).setSeed(5052).fit(scores)  # TODO - Set k
+    kmeans_model = KMeans().setK(k).setSeed(5052).fit(scores)
 
     # Save genres used in model to model object
     kmeans_model.genres = genres_in_scores
 
+    # Calculate sihlouette score & save to model
+    train_predictions = kmeans_model.transform(scores)
+    kmeans_model.sihlouette_score = ClusteringEvaluator().evaluate(train_predictions)
+
     return kmeans_model
-    # # Show centres
-    # print("Cluster Centers: ")
-    # for center in kmeans_model.clusterCenters():
-    #     print("\tCENTER :", center, "\n")
-
-    # centers = kmeans_model.clusterCenters()
-    # for i in range(0, len(centers)):
-    #     centers[i] = centers[i].tolist()
-
-    # centers = spark.sparkContext.parallelize(centers)\
-    #     .toDF(genres_in_scores)
-
-    # centers = centers.withColumn("id", monotonically_increasing_id()).show()
 
 
-def get_cluster_model_centers(cluster_model):
-    """ Returns a formatted string detailing the centers in cluster_model """
-    # TODO - test this function
+def user_cluster_model_auto_k(spark, ratings, movies, max_k, genres):
+    """ Returns a (model, best_k, dictionary) tuple; model is the k-means clustering 
+    model with the highest silhouette score for all values of k up to max_k; best_k is 
+    the value of k used for model; dictionary is a map between the values of k tested and 
+    the silhouette scores of the corresponding model"""
+
+    k_to_score_dict = {}
+    highest_score_k = None
+    highest_score_model = None
+
+    # Generate model for each k
+    for k in range(2, max_k + 1):
+        # Train model
+        this_model = user_cluster_model(spark, ratings, movies, k, genres)
+
+        # Add score to dictionary
+        k_to_score_dict[k] = this_model.sihlouette_score
+
+        if highest_score_model is None or \
+                this_model.sihlouette_score > highest_score_model.sihlouette_score:
+            # New high score => Save model
+            highest_score_k = k
+            highest_score_model = this_model
+
+    return (highest_score_model, highest_score_k, k_to_score_dict)
+
+
+def get_cluster_model_centroids(cluster_model):
+    """ Returns a formatted string detailing the centroids in cluster_model """
 
     # Get centers & genres in model
     centers = cluster_model.clusterCenters()
@@ -65,16 +84,16 @@ def get_cluster_model_centers(cluster_model):
     # Build string
     out_string = ""
     for i in range(len(centers)):
-        out_string += "\n\t Cluster" + str(i)
+        out_string += "\n  Cluster centroid " + str(i) + ":"
         for j in range(len(genres)):
-            out_string += "\n\t " + genres[j] + ": " + str(centers[i][j])
+            out_string += "\n    - " + genres[j] + ": " + str(centers[i][j])
+        out_string += "\n"
 
     return out_string
 
 
-def get_users_clusters(spark, ratings, movies, cluster_model, user_ids):
+def get_users_cluster_predictions(spark, ratings, movies, cluster_model, user_ids):
     """ Returns the predicted cluster that each ID in user_ids is in for cluster_model  """
-    # TODO - Test this function
 
     # Get scores for given users
     users_scores = user_genre_scores(spark, ratings, movies, user_ids)
@@ -89,32 +108,21 @@ def get_users_clusters(spark, ratings, movies, cluster_model, user_ids):
         genres_in_scores.drop("(no genres listed)")
 
     missing_cols = list(set(cluster_model.genres) -
-                        set(genres_in_scores.columns))
+                        set(genres_in_scores))
 
     for column in missing_cols:
-        users_scores = users_scores.withColumn(column, 0)
+        users_scores = users_scores.withColumn(column, lit(0))
 
     # Sort genres alphabetically
     users_scores = users_scores.select(
         sorted(users_scores.columns)).sort(col("userId"))
 
-    # Use model to predict cluster
-    # TODO
+    # Use model to cluster given users
+    users_scores = VectorAssembler(
+        inputCols=cluster_model.genres, outputCol="features").transform(users_scores)
 
-    exit(0)
+    predictions = cluster_model.transform(users_scores)\
+        .select(["userId", "prediction"])\
+        .withColumnRenamed("prediction", "predictedCluster")
 
-    # TODO - Get users scores
-    # TODO - Find centroid for each users
-
-
-def cluster_model_silhouette(cluster_model):
-    """ Returns the silhouette score for a given model """
-
-    exit()
-
-
-def user_cluster_model_auto_k(spark, ratings, movies, max):
-    """ Returns a dictionary of k-to-sihlouette scores by iterating through
-    different values for k """
-
-    exit(0)
+    return predictions
