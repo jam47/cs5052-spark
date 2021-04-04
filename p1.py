@@ -85,9 +85,9 @@ def parse_args():
 
     # Search value
     parser.add_argument("-v", "--value", action="store", dest="search_value", nargs='+',
-                        help="The value to search by")
+                        help="The value(s) to search by")
 
-    # Results length
+    # Results lengths
     parser.add_argument("-c", "--count", action="store", dest="out_count", default=10, type=int,
                         help="The number of results to return")
 
@@ -101,7 +101,7 @@ def parse_args():
 
     # Auto kmeans flag
     parser.add_argument("-a", "--auto-k-means", dest="auto_k_means", action="store_true",
-                        help=("Automatically determine the values of k."
+                        help=("Automatically determine the values of k. "
                               "Use the '-k' argument to specify the maximum."))
 
     # Input directory
@@ -111,7 +111,7 @@ def parse_args():
 
     # Output file
     parser.add_argument("-o", "--output", action="store", dest="outfile",
-                        help=("The relative filepath for the program's output to be written to."
+                        help=("The relative filepath for the program's output to be written to. "
                               "If no file value is supplied, output will be written to stdout."))
 
     # Parse args
