@@ -27,22 +27,23 @@ def movies_by_user_ids(spark, ratings, movies, user_ids):
     return users_movies
 
 
-def movies_by_genre(spark, ratings, movies, genre):
+def movies_by_genres(spark, ratings, movies, genres):
     """ Returns a dataframe containing movies with genre in their list of genres """
 
-    # # Expand genres arrays into multiple rows
-    # genre_movies = movies.withColumn(
-    #     "genre_temp", explode(movies.genres))
+    # Expand genres arrays into multiple rows
+    genre_movies = movies.withColumn(
+        "genre_temp", explode(movies.genres))
 
-    # # Filter movies to genres; Remove expanded genres column & duplicate movies
-    # genre_movies = genre_movies.filter(genre_movies.genre_temp.isin(genres))\
-    #     .drop("genre_temp").distinct()
+    # Filter movies to genres; Remove expanded genres column & duplicate movies
+    genre_movies = genre_movies.filter(genre_movies.genre_temp.isin(genres))\
+        .drop("genre_temp").distinct()
 
-    return movies.where(array_contains(movies.genres, genre))
+    return genre_movies
 
 
 def movies_by_years(spark, ratings, movies, years):
-    """ Returns a dataframe containing movies which were released in a year within years """
+    """ Returns a dataframe containing movies which were released #
+    in a year in provided years """
 
     return movies.filter(movies.year.isin(years))
 

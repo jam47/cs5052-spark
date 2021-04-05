@@ -8,7 +8,7 @@ import sys
 from datetime import datetime
 from contextlib import redirect_stdout
 from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison
-from searches.movie_searches import movies_by_genre, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
+from searches.movie_searches import movies_by_genres, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
 from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
 from searches.cluster_searches import user_cluster_model, user_cluster_model_auto_k, get_cluster_model_centroids, get_cluster_model_silhouette, get_users_cluster_predictions
 
@@ -58,12 +58,13 @@ def parse_args():
     # Search for
     parser.add_argument("-f", "--search-for", action="store", dest="search_for", required=True,
                         choices=[USERS_SF, MOVIES_SF,
-                                 FAV_GENRES_SF, CLUSTER_USERS_SF],
+                                 FAV_GENRES_SF, COMPARE_USERS_SF, CLUSTER_USERS_SF],
                         help=("The type of entity to search for:"
                               "\n\t- " + USERS_SF + ": Search for users"
                               "\n\t- " + MOVIES_SF + ": Search for movies"
                               "\n\t- " + FAV_GENRES_SF + ": Search for users' favourite genres"
-                              "\n\t- " + CLUSTER_USERS_SF + ": Cluster users based on ratings"
+                              "\n\t- " + COMPARE_USERS_SF + ": Compare users' preferences"
+                              "\n\t- " + CLUSTER_USERS_SF + ": Cluster users based on their preferences"
                               ))
 
     # Search by
@@ -259,7 +260,7 @@ def main(spark, args):
 
     elif args.search_for == COMPARE_USERS_SF:
         # Generate comparison between given users
-        to_output = temp = user_taste_comparison(
+        to_output = user_taste_comparison(
             spark, ratings, movies, args.search_value)
         output.write(to_output)
 
@@ -314,18 +315,27 @@ def main(spark, args):
             output_dataframe(result, output, args.out_count, args.csv_out)
 
         elif args.search_by == GENRES_SB:
-            # Search for movies by each genre & output
-            for genre in args.search_value:
-                result = movies_by_genre(
-                    spark, ratings, movies, genre)
+            # Search for movies by genres
+            genres_movies = movies_by_genres(
+                spark, ratings, movies, args.search_value)
 
+            if args.csv_out is not None:
+                # Print to CSV if requested
+                df_to_csv(genres_movies, args.csv_out)
+
+            for genre in args.search_value:
+                # Filter found movies to this genre
+                this_genre_movies = genres_movies.where(
+                    array_contains(genres_movies.genres, genre))
+
+                # Display results
                 output.write("\nMovies in " + genre + " genre:\n")
-                output_dataframe(result, output, args.out_count, args.csv_out)
+                df_to_output(this_genre_movies, args.out_count, output)
 
         elif args.search_by == USERS_SB:
             # Search for movies by user IDs
-            users_movies = movies_by_user_ids(spark,
-                                              ratings, movies, args.search_value)
+            users_movies = movies_by_user_ids(spark, ratings, movies,
+                                              args.search_value)
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -345,12 +355,23 @@ def main(spark, args):
                 output.write("\n")
 
         elif args.search_by == YEARS_SB:
-            # Search for movies by each year & display
+            # Search for movies by given years
+            movies_in_years = movies_by_years(
+                spark, ratings, movies, args.search_value)
+
+            if args.csv_out is not None:
+                # Print to CSV if requested
+                df_to_csv(movies_in_years, args.csv_out)
+
             for year in args.search_value:
-                movies_in_year = movies_by_years(spark, ratings, movies, year)
+                # Filter found movies to this year
+                this_year_movies = movies_in_years.where(
+                    movies_in_years.year == year)
+
+                # Display
                 output.write("Movies in " + year + ":\n")
-                output_dataframe(movies_in_year, output,
-                                 args.out_count, args.csv_out)
+                df_to_output(this_year_movies, output,
+                             args.out_count, args.csv_out)
 
         elif args.search_by == RATING_SB:
             # Get movies sorted by average rating & display
