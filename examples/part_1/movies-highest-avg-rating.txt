@@ -1,0 +1,61 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b rating -c 50 -o examples/part_1/movies-highest-avg-rating.txt
+Data directory: data/ml-latest/
+Date: 2021.04.03 15:24
+
++-------+------------------------------------------------------+-----------------------------------------+----+-------+---------+
+|movieId|title                                                 |genres                                   |year|ratings|avgRating|
++-------+------------------------------------------------------+-----------------------------------------+----+-------+---------+
+|193527 |The Enclosed Valley                                   |[(no genres listed)]                     |1995|2      |5.0      |
+|166028 |What Remains of Us                                    |[Documentary]                            |2004|2      |5.0      |
+|179591 |A Royal Winter                                        |[Drama, Romance]                         |2017|2      |5.0      |
+|164787 |You Cast A Spell On Me                                |[(no genres listed)]                     |2015|2      |5.0      |
+|164771 |Love Finds You in Valentine                           |[Drama, Romance]                         |2016|2      |5.0      |
+|144192 |¡Cuba Sí!                                             |[Documentary]                            |1961|2      |5.0      |
+|137593 |Hooligan                                              |[Action, Comedy, Crime]                  |1998|2      |5.0      |
+|151569 |The Old Fairy Tale: When the Sun Was God              |[Drama, Fantasy]                         |2003|2      |5.0      |
+|148298 |Awaken                                                |[Drama, Romance, Sci-Fi]                 |2013|2      |5.0      |
+|193529 |Traces of Smoke                                       |[(no genres listed)]                     |1992|2      |5.0      |
+|169338 |Brad Williams: Daddy Issues                           |[Comedy]                                 |2016|2      |5.0      |
+|161944 |The Last Brickmaker in America                        |[Drama]                                  |2001|2      |5.0      |
+|171821 |3-D Sex and Zen: Extreme Ecstasy                      |[Drama]                                  |2011|2      |5.0      |
+|133297 |Genius on Hold                                        |[(no genres listed)]                     |2013|2      |5.0      |
+|179589 |Windstorm 2                                           |[Adventure, Children, Drama, Romance]    |2015|2      |5.0      |
+|177581 |North of the Sun                                      |[(no genres listed)]                     |2012|2      |5.0      |
+|152711 |Who Killed Chea Vichea?                               |[Documentary]                            |2010|2      |5.0      |
+|140369 |War Arrow                                             |[Adventure, Drama, Romance, War, Western]|1954|2      |5.0      |
+|179559 |The Memory Book                                       |[Drama, Romance]                         |2014|2      |5.0      |
+|179731 |Sound of Christmas                                    |[Drama]                                  |2016|2      |5.0      |
+|182435 |The Most Wonderful Time of the Year                   |[Drama, Romance]                         |2008|2      |5.0      |
+|139547 |Placebo: Soulmates Never Die: Live in Paris 2003      |[(no genres listed)]                     |2004|2      |5.0      |
+|188503 |The Diary of a Big Man                                |[Comedy, Romance]                        |1988|2      |5.0      |
+|144990 |The Edge of Dreaming                                  |[(no genres listed)]                     |2010|2      |5.0      |
+|143422 |2                                                     |[Drama]                                  |2007|2      |5.0      |
+|163679 |People of a Feather                                   |[Documentary]                            |2012|1      |5.0      |
+|177719 |Dana Gould: I Know It's Wrong                         |[Comedy]                                 |2013|1      |5.0      |
+|193119 |Perfect Bid: The Contestant Who Knew Too Much         |[Documentary]                            |2017|1      |5.0      |
+|186233 |The Scavengers                                        |[Drama]                                  |1970|1      |5.0      |
+|143717 |Meet Market                                           |[Comedy, Romance]                        |2008|1      |5.0      |
+|174789 |Kino-pravda no. 8                                     |[(no genres listed)]                     |1922|1      |5.0      |
+|193385 |And Love Has Vanished                                 |[Drama, Romance]                         |1961|1      |5.0      |
+|178057 |A Boring Story                                        |[(no genres listed)]                     |1983|1      |5.0      |
+|178385 |Women from the Lake of Scented Souls                  |[(no genres listed)]                     |1993|1      |5.0      |
+|169042 |Peacock                                               |[Comedy, Drama, Romance]                 |2015|1      |5.0      |
+|185893 |The Fox in the Chicken Coop                           |[Comedy]                                 |1978|1      |5.0      |
+|158378 |Queen of Carthage                                     |[Drama, Thriller]                        |2013|1      |5.0      |
+|193131 |Mary & Tim                                            |[(no genres listed)]                     |1996|1      |5.0      |
+|165381 |Sneeuwwitje en de zeven kleine mensen                 |[Comedy]                                 |2015|1      |5.0      |
+|181765 |Forbidden Love: The Unashamed Stories of Lesbian Lives|[Documentary]                            |1992|1      |5.0      |
+|189639 |Khushi                                                |[Action, Drama, Romance]                 |2001|1      |5.0      |
+|178147 |Beatles Stories                                       |[Documentary]                            |2011|1      |5.0      |
+|159050 |The Pilot's Wife                                      |[(no genres listed)]                     |2005|1      |5.0      |
+|181103 |Matrix of Evil                                        |[Documentary]                            |2003|1      |5.0      |
+|158117 |The Last Bullet                                       |[Action, Crime, Thriller]                |1973|1      |5.0      |
+|188657 |Mamma Gógó                                            |[Comedy, Drama]                          |2010|1      |5.0      |
+|187171 |The Swindlers                                         |[Crime, Drama]                           |2017|1      |5.0      |
+|147402 |The King and Queen of Moonlight Bay                   |[Children, Drama]                        |2003|1      |5.0      |
+|159904 |Living on Love                                        |[Comedy, Romance]                        |1937|1      |5.0      |
+|134633 |Tony 10                                               |[Children]                               |2012|1      |5.0      |
++-------+------------------------------------------------------+-----------------------------------------+----+-------+---------+
+only showing top 50 rows
+

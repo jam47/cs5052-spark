@@ -57,7 +57,7 @@ data/
 !*.png
 !*.bmp
 !*.jpg
-#!*.txt
+!*.txt
 !*.csv
 !*.yml
 

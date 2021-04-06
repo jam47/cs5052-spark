@@ -1,0 +1,41 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b genres -o examples/part_1/movies-by-genres.txt -v Comedy Horror
+Data directory: data/ml-latest/
+Date: 2021.04.05 11:08
+
+
+Movies in Comedy genre:
++-------+---------------------------------------+--------------------------------+----+-------+------------------+
+|movieId|title                                  |genres                          |year|ratings|avgRating         |
++-------+---------------------------------------+--------------------------------+----+-------+------------------+
+|102113 |One-Eyed Monster                       |[Comedy, Horror, Sci-Fi]        |2008|10     |2.2               |
+|102521 |Deep in the Valley (American Hot Babes)|[Comedy]                        |2009|14     |2.107142857142857 |
+|103050 |Pyaar Ka Punchnama                     |[Comedy, Drama, Romance]        |2011|29     |3.3793103448275863|
+|105435 |Narrien illat                          |[Comedy, Drama, Musical]        |970)|2      |3.25              |
+|106022 |Toy Story of Terror                    |[Animation, Children, Comedy]   |2013|251    |3.402390438247012 |
+|106510 |It's the Easter Beagle, Charlie Brown! |[Animation, Children, Comedy]   |1974|19     |3.6315789473684212|
+|109653 |Bitter Feast                           |[Comedy, Horror, Thriller]      |2010|5      |2.9               |
+|110629 |All American Chump                     |[Comedy]                        |1936|2      |2.5               |
+|117362 |If You Are the One                     |[Comedy, Romance]               |2008|13     |3.730769230769231 |
+|117630 |Double Trouble                         |[Action, Comedy, Crime, Romance]|1992|9      |2.0555555555555554|
++-------+---------------------------------------+--------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies in Horror genre:
++-------+----------------------------------------+----------------------------------+----+-------+------------------+
+|movieId|title                                   |genres                            |year|ratings|avgRating         |
++-------+----------------------------------------+----------------------------------+----+-------+------------------+
+|102113 |One-Eyed Monster                        |[Comedy, Horror, Sci-Fi]          |2008|10     |2.2               |
+|106688 |Crocodile                               |[Horror, Thriller]                |2000|10     |1.15              |
+|109514 |Apartment 1303                          |[Horror]                          |2007|21     |2.5238095238095237|
+|109653 |Bitter Feast                            |[Comedy, Horror, Thriller]        |2010|5      |2.9               |
+|136202 |Pinocchio's Revenge                     |[Horror]                          |1996|5      |2.6               |
+|138964 |Pale Blood                              |[Action, Horror, Thriller]        |1991|4      |2.875             |
+|140168 |The Invoking                            |[Horror, Thriller]                |2013|3      |2.8333333333333335|
+|140235 |The Redeemer: Son of Satan!             |[Horror]                          |1978|4      |1.875             |
+|144982 |Paranormal Activity: The Ghost Dimension|[Horror, Thriller]                |2015|139    |2.4892086330935252|
+|147348 |Anacondas: Trail of Blood               |[Action, Horror, Sci-Fi, Thriller]|2009|14     |2.5               |
++-------+----------------------------------------+----------------------------------+----+-------+------------------+
+only showing top 10 rows
+

@@ -1,0 +1,41 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b movie-names -o examples/part_1/movies-by-titles.txt -c 30 -v cheese scout shadow
+Data directory: data/ml-latest/
+Date: 2021.04.05 11:14
+
++-------+----------------------------------------------------------+----------------------------------+----+-------+------------------+
+|movieId|title                                                     |genres                            |year|ratings|avgRating         |
++-------+----------------------------------------------------------+----------------------------------+----+-------+------------------+
+|72621  |Man with No Shadow, The (Homme sans ombre, L')            |[Animation, Drama]                |2004|5      |3.1               |
+|26413  |Snake in the Eagle's Shadow (Se ying diu sau)             |[Action, Comedy]                  |1978|152    |3.6546052631578947|
+|42783  |Shadows of Our Forgotten Ancestors (Tini zabutykh predkiv)|[Drama, Romance]                  |1964|70     |4.007142857142857 |
+|177461 |Shadow of a Man                                           |[Crime, Drama]                    |1956|1      |1.5               |
+|124933 |Project: Shadowchaser                                     |[Action, Sci-Fi, Thriller]        |1992|1      |2.0               |
+|126229 |The Shadow Men                                            |[Horror, Sci-Fi, Thriller]        |1997|5      |2.7               |
+|158024 |Dead Shadows                                              |[Horror, Sci-Fi, Thriller]        |2012|3      |1.8333333333333333|
+|167550 |Shadow of the Wolf                                        |[Adventure, Drama]                |1992|1      |4.0               |
+|534    |Shadowlands                                               |[Drama, Romance]                  |1993|5077   |3.8886153240102423|
+|118474 |The Bloodstained Shadow                                   |[Mystery, Thriller]               |1978|4      |2.75              |
+|65974  |Shadow of the Holy Book (Pyhän kirjan varjo)              |[Documentary]                     |2007|15     |2.9               |
+|89145  |William Vincent (Shadows and Lies)                        |[Drama]                           |2010|3      |2.1666666666666665|
+|5820   |Standing in the Shadows of Motown                         |[Documentary, Musical]            |2002|493    |3.859026369168357 |
+|113126 |Val Lewton:  The Man in the Shadows                       |[Documentary]                     |2007|7      |3.642857142857143 |
+|168710 |SAGA: Curse of the Shadow                                 |[Action, Adventure, Fantasy]      |2013|3      |2.5               |
+|101216 |Shadow Boxers                                             |[Documentary]                     |1999|0      |0.0               |
+|80825  |Shadows (Senki)                                           |[Drama, Horror, Mystery, Thriller]|2007|6      |2.9166666666666665|
+|166848 |Shadows of the Dead                                       |[Horror]                          |2016|3      |3.5               |
+|26814  |Cyborg 2: Glass Shadow                                    |[Action, Sci-Fi, Thriller]        |1993|23     |2.3260869565217392|
+|115122 |What We Do in the Shadows                                 |[Comedy, Horror]                  |2014|1818   |3.934268426842684 |
+|176043 |The Stranger: Summoned by Shadows                         |[Sci-Fi]                          |1991|1      |2.0               |
+|132242 |Inju, The Beast in the Shadow                             |[Thriller]                        |2008|1      |2.5               |
+|185583 |Valley of Shadows                                         |[Horror]                          |2017|1      |3.5               |
+|528    |Scout, The                                                |[Comedy, Drama]                   |1994|951    |2.781808622502629 |
+|171467 |The Age of Shadows                                        |[Action, Drama, Thriller]         |2016|24     |3.4583333333333335|
+|72897  |White Shadows in the South Seas                           |[Drama, Romance]                  |1928|3      |3.0               |
+|4245   |Shadow Magic                                              |[Drama, Romance]                  |2000|87     |3.442528735632184 |
+|74679  |In the Shadow of Doubt (Epäilyksen varjossa)              |[Documentary]                     |2010|2      |2.0               |
+|70819  |The Shadow of the Eagle                                   |[Crime, Drama, Mystery, Thriller] |1932|2      |3.0               |
+|873    |Shadow of Angels (Schatten der Engel)                     |[Drama]                           |1976|46     |3.0217391304347827|
++-------+----------------------------------------------------------+----------------------------------+----+-------+------------------+
+only showing top 30 rows
+

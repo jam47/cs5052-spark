@@ -20,9 +20,9 @@ from searches.suggestion_searches import nearest_neighbours, get_movie_suggestio
 # Environment variables
 SPARK_NAME = "CS5052 P1 - Apache Spark"             # Name of the spark app
 APP_NAME = "170002815 & 170001567 - CS5052 P1"      # Name of the program
-DEFAULT_DATASET_FILEPATH = "data/ml-latest/"        # Location of data directory
+# DEFAULT_DATASET_FILEPATH = "data/ml-latest/"        # Location of data directory
 # Location of data directory
-# DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"
+DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"
 
 
 # Dataset constants
@@ -439,7 +439,8 @@ if __name__ == "__main__":
     spark = SparkSession.builder.master("local")\
         .appName(SPARK_NAME)\
         .master("local[10]") \
-        .config("spark.driver.memory", "16G")\
+        .config("spark.driver.memory", "16g")\
+        .config("spark.executor.memory", "1g")\
         .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")\
 

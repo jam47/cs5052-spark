@@ -1,0 +1,61 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b watches -c 50 -o examples/part_1/movies-highest-watch-count.txt
+Data directory: data/ml-latest/
+Date: 2021.04.03 15:28
+
++-------+-----------------------------------------------------------------------+----------------------------------------------------------+----+-------+------------------+
+|movieId|title                                                                  |genres                                                    |year|ratings|avgRating         |
++-------+-----------------------------------------------------------------------+----------------------------------------------------------+----+-------+------------------+
+|318    |Shawshank Redemption, The                                              |[Crime, Drama]                                            |1994|97999  |4.424188001918387 |
+|356    |Forrest Gump                                                           |[Comedy, Drama, Romance, War]                             |1994|97040  |4.056584913437757 |
+|296    |Pulp Fiction                                                           |[Comedy, Crime, Drama, Thriller]                          |1994|92406  |4.173971387139363 |
+|593    |Silence of the Lambs, The                                              |[Crime, Horror, Thriller]                                 |1991|87899  |4.15141241652351  |
+|2571   |Matrix, The                                                            |[Action, Sci-Fi, Thriller]                                |1999|84545  |4.149695428470046 |
+|260    |Star Wars: Episode IV - A New Hope                                     |[Action, Adventure, Sci-Fi]                               |1977|81815  |4.120454684348836 |
+|480    |Jurassic Park                                                          |[Action, Adventure, Sci-Fi, Thriller]                     |1993|76451  |3.6650338125073576|
+|527    |Schindler's List                                                       |[Drama, War]                                              |1993|71516  |4.257501817775044 |
+|110    |Braveheart                                                             |[Action, Drama, War]                                      |1995|68803  |4.008480734851678 |
+|1      |Toy Story                                                              |[Adventure, Animation, Children, Comedy, Fantasy]         |1995|68469  |3.8866494325899312|
+|1210   |Star Wars: Episode VI - Return of the Jedi                             |[Action, Adventure, Sci-Fi]                               |1983|66023  |3.986042742680581 |
+|1196   |Star Wars: Episode V - The Empire Strikes Back                         |[Action, Adventure, Sci-Fi]                               |1980|65822  |4.133481206891313 |
+|2959   |Fight Club                                                             |[Action, Crime, Drama, Thriller]                          |1999|65678  |4.230663235786717 |
+|589    |Terminator 2: Judgment Day                                             |[Action, Sci-Fi]                                          |1991|64258  |3.9415014472906096|
+|1198   |Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)|[Action, Adventure]                                       |1981|63505  |4.120455082276986 |
+|50     |Usual Suspects, The                                                    |[Crime, Mystery, Thriller]                                |1995|62180  |4.291958829205532 |
+|4993   |Lord of the Rings: The Fellowship of the Ring, The                     |[Adventure, Fantasy]                                      |2001|61883  |4.0979428922321155|
+|858    |Godfather, The                                                         |[Crime, Drama]                                            |1972|60904  |4.332892749244713 |
+|2858   |American Beauty                                                        |[Drama, Romance]                                          |1999|60820  |4.121506083525156 |
+|780    |Independence Day (a.k.a. ID4)                                          |[Action, Adventure, Sci-Fi, Thriller]                     |1996|58949  |3.3971653463163074|
+|150    |Apollo 13                                                              |[Adventure, Drama, IMAX]                                  |1995|58665  |3.8843006903605217|
+|457    |Fugitive, The                                                          |[Thriller]                                                |1993|58031  |3.979976219606762 |
+|1270   |Back to the Future                                                     |[Adventure, Comedy, Sci-Fi]                               |1985|57492  |3.929998956376539 |
+|7153   |Lord of the Rings: The Return of the King, The                         |[Action, Adventure, Drama, Fantasy]                       |2003|57378  |4.102853009864408 |
+|5952   |Lord of the Rings: The Two Towers, The                                 |[Adventure, Fantasy]                                      |2002|56696  |4.074705446592352 |
+|47     |Seven (a.k.a. Se7en)                                                   |[Mystery, Thriller]                                       |1995|55240  |4.071687183200579 |
+|32     |Twelve Monkeys (a.k.a. 12 Monkeys)                                     |[Mystery, Sci-Fi, Thriller]                               |1995|54846  |3.8901925391095067|
+|608    |Fargo                                                                  |[Comedy, Crime, Drama, Thriller]                          |1996|54500  |4.106229357798165 |
+|592    |Batman                                                                 |[Action, Crime, Thriller]                                 |1989|54448  |3.386488025271819 |
+|2028   |Saving Private Ryan                                                    |[Action, Drama, War]                                      |1998|54027  |4.05053029041035  |
+|2762   |Sixth Sense, The                                                       |[Drama, Horror, Mystery]                                  |1999|52270  |4.015812129328487 |
+|590    |Dances with Wolves                                                     |[Adventure, Drama, Western]                               |1990|51877  |3.740337721919155 |
+|588    |Aladdin                                                                |[Adventure, Animation, Children, Comedy, Musical]         |1992|51827  |3.6917533332047   |
+|380    |True Lies                                                              |[Action, Adventure, Comedy, Romance, Thriller]            |1994|50864  |3.501710443535703 |
+|3578   |Gladiator                                                              |[Action, Adventure, Drama]                                |2000|48666  |3.9563350182879216|
+|364    |Lion King, The                                                         |[Adventure, Animation, Children, Drama, Musical, IMAX]    |1994|47305  |3.811425853503858 |
+|4306   |Shrek                                                                  |[Adventure, Animation, Children, Comedy, Fantasy, Romance]|2001|46826  |3.7718788707128517|
+|377    |Speed                                                                  |[Action, Romance, Thriller]                               |1994|46475  |3.4866057019903174|
+|344    |Ace Ventura: Pet Detective                                             |[Comedy]                                                  |1994|45608  |2.989431678652868 |
+|648    |Mission: Impossible                                                    |[Action, Adventure, Mystery, Thriller]                    |1996|45064  |3.40252751642109  |
+|1721   |Titanic                                                                |[Drama, Romance]                                          |1997|44787  |3.4057092459865586|
+|58559  |Dark Knight, The                                                       |[Action, Crime, Drama, IMAX]                              |2008|44741  |4.173755615654545 |
+|1580   |Men in Black (a.k.a. MIB)                                              |[Action, Comedy, Sci-Fi]                                  |1997|44287  |3.578533203874726 |
+|4226   |Memento                                                                |[Mystery, Thriller]                                       |2000|43739  |4.153844395162213 |
+|1197   |Princess Bride, The                                                    |[Action, Adventure, Comedy, Fantasy, Romance]             |1987|42878  |4.124807593637763 |
+|1704   |Good Will Hunting                                                      |[Drama, Romance]                                          |1997|42769  |4.076387102808109 |
+|595    |Beauty and the Beast                                                   |[Animation, Children, Fantasy, Musical, Romance, IMAX]    |1991|42400  |3.679634433962264 |
+|1240   |Terminator, The                                                        |[Action, Sci-Fi, Thriller]                                |1984|42254  |3.891844559094997 |
+|1193   |One Flew Over the Cuckoo's Nest                                        |[Drama]                                                   |1975|42181  |4.222920272160452 |
+|1291   |Indiana Jones and the Last Crusade                                     |[Action, Adventure]                                       |1989|42043  |3.9796636776633445|
++-------+-----------------------------------------------------------------------+----------------------------------------------------------+----+-------+------------------+
+only showing top 50 rows
+

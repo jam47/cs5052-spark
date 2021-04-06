@@ -1,0 +1,64 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f favourite-genres -b user-ids -v 1 2 3 -o examples/part_2/favourite-genres.txt
+Data directory: data/ml-latest/
+Date: 2021.04.05 10:20
+
+User 1's favourite genre: Comedy
+
+User 1's scores:
++------+--------+-----+
+|userId|genre   |score|
++------+--------+-----+
+|1     |Comedy  |3.438|
+|1     |Drama   |3.375|
+|1     |Romance |3.25 |
+|1     |Fantasy |3.167|
+|1     |Western |3.0  |
+|1     |Action  |2.75 |
+|1     |Crime   |2.75 |
+|1     |Sci-Fi  |2.688|
+|1     |Thriller|2.611|
+|1     |Horror  |2.375|
++------+--------+-----+
+only showing top 10 rows
+
+
+User 2's favourite genre: Drama
+
+User 2's scores:
++------+---------+-----+
+|userId|genre    |score|
++------+---------+-----+
+|2     |Drama    |3.55 |
+|2     |Comedy   |3.409|
+|2     |Romance  |3.357|
+|2     |Thriller |3.1  |
+|2     |Horror   |3.0  |
+|2     |Musical  |3.0  |
+|2     |Action   |3.0  |
+|2     |Adventure|3.0  |
+|2     |Sci-Fi   |2.833|
+|2     |Crime    |2.833|
++------+---------+-----+
+only showing top 10 rows
+
+
+User 3's favourite genre: Drama
+
+User 3's scores:
++------+---------+-----+
+|userId|genre    |score|
++------+---------+-----+
+|3     |Drama    |3.4  |
+|3     |Action   |3.333|
+|3     |War      |3.333|
+|3     |Thriller |3.2  |
+|3     |Comedy   |3.0  |
+|3     |Crime    |3.0  |
+|3     |Adventure|3.0  |
+|3     |Children |3.0  |
+|3     |Mystery  |3.0  |
+|3     |Horror   |2.75 |
++------+---------+-----+
+
+

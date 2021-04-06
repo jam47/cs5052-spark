@@ -17,7 +17,7 @@ def scores_df_euclidean_dist(dataframe):
 
 
 def nearest_neighbours(spark, ratings, movies, user_ids):
-    # TODO - Doc comment
+    """  """  # TODO
 
     # Register user-defined function with spark
     distance_func = udf(
@@ -85,7 +85,7 @@ def nearest_neighbours(spark, ratings, movies, user_ids):
 
 
 def get_movie_suggestions(spark, ratings, movies, user_id, neighbour_user_ids):
-    # TODO - Doc comment
+    """ """  # TODO
 
     # Find highest positively (>2.5) rated movies for neighbour users
     neighbour_movies = ratings.where(ratings.userId.isin(neighbour_user_ids))\

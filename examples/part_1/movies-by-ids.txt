@@ -1,0 +1,18 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b movie-ids -o examples/part_1/movies-by-ids.txt -v 15 42 97 312 486 952 1010 2048
+Data directory: data/ml-latest/
+Date: 2021.04.05 11:10
+
++-------+---------------------------+------------------------------------+----+-------+------------------+
+|movieId|title                      |genres                              |year|ratings|avgRating         |
++-------+---------------------------+------------------------------------+----+-------+------------------+
+|15     |Cutthroat Island           |[Action, Adventure, Romance]        |1995|3154   |2.730976537729867 |
+|42     |Dead Presidents            |[Action, Crime, Drama]              |1995|2620   |3.0482824427480915|
+|1010   |Love Bug, The              |[Children, Comedy]                  |1969|2766   |3.0748373101952278|
+|2048   |Great Mouse Detective, The |[Action, Animation, Children, Crime]|1986|2052   |3.4858674463937622|
+|486    |Life with Mikey            |[Comedy]                            |1993|645    |2.6930232558139533|
+|952    |Around the World in 80 Days|[Adventure, Comedy]                 |1956|2785   |3.4741472172351884|
+|97     |Hate (Haine, La)           |[Crime, Drama]                      |1995|2848   |3.987710674157303 |
+|312    |Stuart Saves His Family    |[Comedy]                            |1995|1362   |2.608663729809104 |
++-------+---------------------------+------------------------------------+----+-------+------------------+
+

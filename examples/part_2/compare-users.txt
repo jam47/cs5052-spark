@@ -1,0 +1,32 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f compare-users -b user-ids -o examples/part_2/compare-users.txt -v 10 20 30 40
+Data directory: data/ml-latest/
+Date: 2021.04.04 20:14
+
+COMPARING USERS: 10 20 30 40
+
+ Number of ratings:
+	 User 10: 121
+	 User 20: 4
+	 User 30: 17
+	 User 40: 10
+
+ Mean rating:
+	 User 10: 4.0
+	 User 20: 3.0
+	 User 30: 4.0
+	 User 40: 4.0
+
+ Rating standard deviation:
+	 User 10: 1.0
+	 User 20: 1.0
+	 User 30: 1.0
+	 User 40: 1.0
+
+ Highest rated movie between users: Dirty Dancing (ID: 1088)
+
+ Lowest rated movie between users: Doors, The (ID: 1093)
+
+ Highest ranked genre between users: Fantasy
+
+ Lowest ranked genre between users: IMAX

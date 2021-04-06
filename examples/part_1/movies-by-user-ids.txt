@@ -1,0 +1,131 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b user-ids -o examples/part_1/movies-by-user-ids.txt -v 1 5 16 43 92 526 5052
+Data directory: data/ml-latest/
+Date: 2021.04.05 11:21
+
+Movies for user ID 1:
++-------+-----------------------------------------+-------------------------------------+----+-------+------------------+
+|movieId|title                                    |genres                               |year|ratings|avgRating         |
++-------+-----------------------------------------+-------------------------------------+----+-------+------------------+
+|3826   |Hollow Man                               |[Horror, Sci-Fi, Thriller]           |2000|8898   |2.5461339626882444|
+|307    |Three Colors: Blue (Trois couleurs: Bleu)|[Drama]                              |1993|7958   |3.971726564463433 |
+|2478   |¡Three Amigos!                           |[Comedy, Western]                    |1986|7797   |3.1163909195844557|
+|2840   |Stigmata                                 |[Drama, Thriller]                    |1999|6047   |3.0324127666611544|
+|481    |Kalifornia                               |[Drama, Thriller]                    |1993|6037   |3.3392413450389267|
+|1257   |Better Off Dead...                       |[Comedy, Romance]                    |1985|5902   |3.828617417824466 |
+|3020   |Falling Down                             |[Action, Drama]                      |1993|7783   |3.59610689965309  |
+|1449   |Waiting for Guffman                      |[Comedy]                             |1996|6867   |3.918377748652978 |
+|2134   |Weird Science                            |[Comedy, Fantasy, Sci-Fi]            |1985|7020   |3.2891737891737893|
+|1591   |Spawn                                    |[Action, Adventure, Sci-Fi, Thriller]|1997|6508   |2.6466656422864165|
++-------+-----------------------------------------+-------------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies for user ID 5:
++-------+---------------------+----------------------------------+----+-------+------------------+
+|movieId|title                |genres                            |year|ratings|avgRating         |
++-------+---------------------+----------------------------------+----+-------+------------------+
+|296    |Pulp Fiction         |[Comedy, Crime, Drama, Thriller]  |1994|92406  |4.173971387139363 |
+|3949   |Requiem for a Dream  |[Drama]                           |2000|23400  |4.00025641025641  |
+|50068  |Letters from Iwo Jima|[Drama, War]                      |2006|3154   |3.8172162333544706|
+|30749  |Hotel Rwanda         |[Drama, War]                      |2004|12353  |3.992592892414798 |
+|44195  |Thank You for Smoking|[Comedy, Drama]                   |2006|11106  |3.8232486943994237|
+|8950   |The Machinist        |[Drama, Mystery, Thriller]        |2004|9235   |3.8125067677314566|
+|2329   |American History X   |[Crime, Drama]                    |1998|34110  |4.1408824391674   |
+|38061  |Kiss Kiss Bang Bang  |[Comedy, Crime, Mystery, Thriller]|2005|7577   |3.847828956051208 |
+|46976  |Stranger than Fiction|[Comedy, Drama, Fantasy, Romance] |2006|9631   |3.7889108088464334|
+|1213   |Goodfellas           |[Crime, Drama]                    |1990|35934  |4.177603383981745 |
++-------+---------------------+----------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies for user ID 16:
++-------+-----------------------------------------------------------+------------------------------------------------------+----+-------+------------------+
+|movieId|title                                                      |genres                                                |year|ratings|avgRating         |
++-------+-----------------------------------------------------------+------------------------------------------------------+----+-------+------------------+
+|296    |Pulp Fiction                                               |[Comedy, Crime, Drama, Thriller]                      |1994|92406  |4.173971387139363 |
+|272    |Madness of King George, The                                |[Comedy, Drama]                                       |1994|8404   |3.7369704902427414|
+|232    |Eat Drink Man Woman (Yin shi nan nu)                       |[Comedy, Drama, Romance]                              |1994|6538   |4.022713368002448 |
+|282    |Nell                                                       |[Drama]                                               |1994|12425  |3.392917505030181 |
+|317    |Santa Clause, The                                          |[Comedy, Drama, Fantasy]                              |1994|17944  |3.1316038787338387|
+|11     |American President, The                                    |[Comedy, Drama, Romance]                              |1995|19669  |3.660277594183741 |
+|595    |Beauty and the Beast                                       |[Animation, Children, Fantasy, Musical, Romance, IMAX]|1991|42400  |3.679634433962264 |
+|468    |Englishman Who Went Up a Hill But Came Down a Mountain, The|[Comedy, Romance]                                     |1995|8115   |3.308441158348737 |
+|348    |Bullets Over Broadway                                      |[Comedy]                                              |1994|8563   |3.6813032815602007|
+|34     |Babe                                                       |[Children, Drama]                                     |1995|35903  |3.613834498509874 |
++-------+-----------------------------------------------------------+------------------------------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies for user ID 43:
++-------+-----------------------------------------+---------------------------------------+----+-------+------------------+
+|movieId|title                                    |genres                                 |year|ratings|avgRating         |
++-------+-----------------------------------------+---------------------------------------+----+-------+------------------+
+|1090   |Platoon                                  |[Drama, War]                           |1986|18825  |3.9017529880478086|
+|296    |Pulp Fiction                             |[Comedy, Crime, Drama, Thriller]       |1994|92406  |4.173971387139363 |
+|1394   |Raising Arizona                          |[Comedy]                               |1987|17330  |3.8690998268897867|
+|1265   |Groundhog Day                            |[Comedy, Fantasy, Romance]             |1993|40836  |3.8854931922813205|
+|3836   |Kelly's Heroes                           |[Action, Comedy, War]                  |1970|2369   |3.7864077669902914|
+|919    |Wizard of Oz, The                        |[Adventure, Children, Fantasy, Musical]|1939|27436  |3.9447076833357633|
+|1956   |Ordinary People                          |[Drama]                                |1980|4771   |3.8776985956822467|
+|272    |Madness of King George, The              |[Comedy, Drama]                        |1994|8404   |3.7369704902427414|
+|2144   |Sixteen Candles                          |[Comedy, Romance]                      |1984|10721  |3.6180393619998132|
+|2628   |Star Wars: Episode I - The Phantom Menace|[Action, Adventure, Sci-Fi]            |1999|37179  |3.086352510826004 |
++-------+-----------------------------------------+---------------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies for user ID 92:
++-------+---------------------------+------------------------------------------+----+-------+------------------+
+|movieId|title                      |genres                                    |year|ratings|avgRating         |
++-------+---------------------------+------------------------------------------+----+-------+------------------+
+|7      |Sabrina                    |[Comedy, Romance]                         |1995|15301  |3.371348277890334 |
+|1485   |Liar Liar                  |[Comedy]                                  |1997|22136  |3.2284513913986266|
+|2012   |Back to the Future Part III|[Adventure, Comedy, Sci-Fi, Western]      |1990|25117  |3.3126766731695665|
+|3      |Grumpier Old Men           |[Comedy, Romance]                         |1995|15585  |3.173981392364453 |
+|2791   |Airplane!                  |[Comedy]                                  |1980|22746  |3.787632990415897 |
+|1407   |Scream                     |[Comedy, Horror, Mystery, Thriller]       |1996|19844  |3.2725257004636163|
+|653    |Dragonheart                |[Action, Adventure, Fantasy]              |1996|16831  |3.219654209494385 |
+|3147   |Green Mile, The            |[Crime, Drama]                            |1999|33140  |4.025558237779119 |
+|5445   |Minority Report            |[Action, Crime, Mystery, Sci-Fi, Thriller]|2002|33163  |3.6784368121098816|
+|497    |Much Ado About Nothing     |[Comedy, Romance]                         |1993|15351  |3.870203895511693 |
++-------+---------------------------+------------------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies for user ID 526:
++-------+----------------------------------------------------+-------------------------------------------+----+-------+------------------+
+|movieId|title                                               |genres                                     |year|ratings|avgRating         |
++-------+----------------------------------------------------+-------------------------------------------+----+-------+------------------+
+|1090   |Platoon                                             |[Drama, War]                               |1986|18825  |3.9017529880478086|
+|27317  |Audition (Ôdishon)                                  |[Drama, Horror, Mystery, Romance, Thriller]|1999|1671   |3.6128067025733093|
+|296    |Pulp Fiction                                        |[Comedy, Crime, Drama, Thriller]           |1994|92406  |4.173971387139363 |
+|48738  |Last King of Scotland, The                          |[Drama, Thriller]                          |2006|6166   |3.849010703859877 |
+|6731   |Day of the Dead                                     |[Horror, Sci-Fi, Thriller]                 |1985|1552   |3.5679768041237114|
+|1394   |Raising Arizona                                     |[Comedy]                                   |1987|17330  |3.8690998268897867|
+|3826   |Hollow Man                                          |[Horror, Sci-Fi, Thriller]                 |2000|8898   |2.5461339626882444|
+|4975   |Vanilla Sky                                         |[Mystery, Romance, Sci-Fi, Thriller]       |2001|11889  |3.3854403229876358|
+|1361   |Paradise Lost: The Child Murders at Robin Hood Hills|[Documentary]                              |1996|1821   |4.065897858319604 |
+|2700   |South Park: Bigger, Longer and Uncut                |[Animation, Comedy, Musical]               |1999|20341  |3.6145961358831915|
++-------+----------------------------------------------------+-------------------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+
+Movies for user ID 5052:
++-------+--------------------------------------------------------+--------------------------------------------+----+-------+------------------+
+|movieId|title                                                   |genres                                      |year|ratings|avgRating         |
++-------+--------------------------------------------------------+--------------------------------------------+----+-------+------------------+
+|1372   |Star Trek VI: The Undiscovered Country                  |[Action, Mystery, Sci-Fi]                   |1991|12577  |3.2992764570247277|
+|2718   |Drop Dead Gorgeous                                      |[Comedy]                                    |1999|3499   |3.179051157473564 |
+|2628   |Star Wars: Episode I - The Phantom Menace               |[Action, Adventure, Sci-Fi]                 |1999|37179  |3.086352510826004 |
+|2762   |Sixth Sense, The                                        |[Drama, Horror, Mystery]                    |1999|52270  |4.015812129328487 |
+|2012   |Back to the Future Part III                             |[Adventure, Comedy, Sci-Fi, Western]        |1990|25117  |3.3126766731695665|
+|2363   |Godzilla (Gojira)                                       |[Drama, Horror, Sci-Fi]                     |1954|2734   |3.1755669348939284|
+|2407   |Cocoon                                                  |[Comedy, Sci-Fi]                            |1985|12658  |3.2787170169063042|
+|29     |City of Lost Children, The (Cité des enfants perdus, La)|[Adventure, Drama, Fantasy, Mystery, Sci-Fi]|1995|10024  |3.9187948922585796|
+|788    |Nutty Professor, The                                    |[Comedy, Fantasy, Romance, Sci-Fi]          |1996|22507  |2.847291953614431 |
+|1584   |Contact                                                 |[Drama, Sci-Fi]                             |1997|24808  |3.67256530151564  |
++-------+--------------------------------------------------------+--------------------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+

@@ -136,9 +136,12 @@ def user_taste_comparison(spark, ratings, movies, user_ids):
     # TODO - Is this ranking correct?? This may be inverted as rank may be lowest
     # Find highest & lowest ranked genres on average
     genre_scores = user_genre_scores(spark, ratings, movies, user_ids)
+    genre_scores.show()
 
     genre_ranks = genre_scores.withColumn("genreRank", row_number().over(
         Window.partitionBy("userId").orderBy("score")))
+
+    genre_ranks.show()
 
     avg_genre_ranks = genre_ranks.groupBy("genre").agg(
         mean("genreRank").alias("avgGenreRank"))

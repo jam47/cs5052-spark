@@ -1,0 +1,56 @@
+Program: 170002815 & 170001567 - CS5052 P1
+Command: p1.py -f movies -b years -o examples/part_1/movies-by-years.txt -v 1997 2002 2008
+Data directory: data/ml-latest/
+Date: 2021.04.05 11:26
+
+Movies in 1997:
++-------+--------------------------------------------------------------------+-----------------------------+----+-------+------------------+
+|movieId|title                                                               |genres                       |year|ratings|avgRating         |
++-------+--------------------------------------------------------------------+-----------------------------+----+-------+------------------+
+|124717 |Path to Paradise: The Untold Story of the World Trade Center Bombing|[Drama]                      |1997|1      |2.5               |
+|178557 |Vanishing Point                                                     |[Action, Adventure, Thriller]|1997|2      |3.5               |
+|102497 |Last Stand At Saber River                                           |[Western]                    |1997|5      |3.2               |
+|1669   |Tango Lesson, The                                                   |[Romance]                    |1997|342    |3.4502923976608186|
+|870    |Gone Fishin'                                                        |[Comedy]                     |1997|500    |2.242             |
+|156702 |Joey                                                                |[Children]                   |1997|5      |2.2               |
+|182499 |Aniyathipraavu                                                      |[Children]                   |1997|1      |3.0               |
+|1903   |Hav Plenty                                                          |[Comedy]                     |1997|70     |2.8857142857142857|
+|1445   |McHale's Navy                                                       |[Comedy, War]                |1997|1422   |2.323136427566807 |
+|1500   |Grosse Pointe Blank                                                 |[Comedy, Crime, Romance]     |1997|16248  |3.7229812900049235|
++-------+--------------------------------------------------------------------+-----------------------------+----+-------+------------------+
+only showing top 10 rows
+
+Movies in 2002:
++-------+------------------------------------------------------------------+-----------------------------------+----+-------+------------------+
+|movieId|title                                                             |genres                             |year|ratings|avgRating         |
++-------+------------------------------------------------------------------+-----------------------------------+----+-------+------------------+
+|135478 |Obsessed                                                          |[Drama, Thriller]                  |2002|1      |3.0               |
+|163202 |Do You Believe in Miracles? The Story of the 1980 U.S. Hockey Team|[Documentary]                      |2002|1      |2.0               |
+|179039 |No Blood No Tears                                                 |[Action, Drama]                    |2002|1      |3.0               |
+|97872  |Living with the Fosters                                           |[Comedy]                           |2002|1      |4.5               |
+|176715 |The Godthumb                                                      |[Action, Comedy, Thriller]         |2002|2      |3.25              |
+|32392  |800 Bullets (800 Balas)                                           |[Comedy, Crime, Drama, Western]    |2002|85     |3.111764705882353 |
+|5523   |Adventures of Pluto Nash, The                                     |[Action, Adventure, Comedy, Sci-Fi]|2002|824    |2.0382281553398056|
+|5613   |8 Women                                                           |[Comedy, Crime, Musical, Mystery]  |2002|997    |3.436810431293882 |
+|6248   |Japon (a.k.a. Japan) (Japón)                                      |[Drama]                            |2002|59     |3.152542372881356 |
+|84329  |Code Conspiracy, The                                              |[Action, Mystery, Thriller]        |2002|7      |2.0               |
++-------+------------------------------------------------------------------+-----------------------------------+----+-------+------------------+
+only showing top 10 rows
+
+Movies in 2008:
++-------+----------------------------------+---------------------------+----+-------+------------------+
+|movieId|title                             |genres                     |year|ratings|avgRating         |
++-------+----------------------------------+---------------------------+----+-------+------------------+
+|102113 |One-Eyed Monster                  |[Comedy, Horror, Sci-Fi]   |2008|10     |2.2               |
+|106090 |Tortured                          |[Crime, Thriller]          |2008|6      |3.0833333333333335|
+|117362 |If You Are the One                |[Comedy, Romance]          |2008|13     |3.730769230769231 |
+|155141 |Parugu                            |[Comedy, Drama]            |2008|4      |3.5               |
+|164955 |Adopt a Sailor                    |[Comedy, Drama, Romance]   |2008|1      |4.0               |
+|61354  |College                           |[Comedy]                   |2008|116    |2.3491379310344827|
+|62912  |High School Musical 3: Senior Year|[Musical]                  |2008|632    |2.4897151898734178|
+|65045  |Alien Raiders                     |[Mystery, Sci-Fi, Thriller]|2008|82     |2.8048780487804876|
+|66584  |Pistol Whipped                    |[Action, Drama]            |2008|14     |2.4285714285714284|
+|66762  |Paris                             |[Comedy, Drama, Romance]   |2008|122    |3.5737704918032787|
++-------+----------------------------------+---------------------------+----+-------+------------------+
+only showing top 10 rows
+
