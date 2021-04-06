@@ -1,4 +1,6 @@
 # CS5052 P1 - Spark Data Analysis Application
+This application is 170002815 and 170001567's CS5052 Practical 1 submission. 
+
 
 ## Directory Structure
 ----
