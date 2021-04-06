@@ -17,7 +17,9 @@ def scores_df_euclidean_dist(dataframe):
 
 
 def nearest_neighbours(spark, ratings, movies, user_ids):
-    """  """  # TODO
+    """ Retrieves the distances to all other users from each user in user_ids, 
+    returned in ascending order, with the euclidean distance between each user's 
+    genre scores as the distance measure """
 
     # Register user-defined function with spark
     distance_func = udf(
@@ -75,8 +77,6 @@ def nearest_neighbours(spark, ratings, movies, user_ids):
             .select(["userId", "neighbourId", "distance"])\
             .cache()
 
-        distances.show()
-
         # Join to dataframe to return
         user_neighbours = user_neighbours.union(distances)
 
@@ -85,7 +85,7 @@ def nearest_neighbours(spark, ratings, movies, user_ids):
 
 
 def get_movie_suggestions(spark, ratings, movies, user_id, neighbour_user_ids):
-    """ """  # TODO
+    """ Provides suggested movies for a user (user_id), given their neighbours (neighbour_user_ids) """
 
     # Find highest positively (>2.5) rated movies for neighbour users
     neighbour_movies = ratings.where(ratings.userId.isin(neighbour_user_ids))\

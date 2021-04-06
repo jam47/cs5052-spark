@@ -51,9 +51,9 @@ def user_cluster_model(spark, ratings, movies, k, genres):
 
 
 def user_cluster_model_auto_k(spark, ratings, movies, max_k, genres):
-    """ Returns a (model, best_k, dictionary) tuple; model is the k-means clustering 
-    model with the highest silhouette score for all values of k up to max_k; best_k is 
-    the value of k used for model; dictionary is a map between the values of k tested and 
+    """ Returns a (model, best_k, dictionary) tuple; model is the k-means clustering
+    model with the highest silhouette score for all values of k up to max_k; best_k is
+    the value of k used for model; dictionary is a map between the values of k tested and
     the silhouette scores of the corresponding model"""
 
     k_to_score_dict = {}
@@ -93,6 +93,27 @@ def get_cluster_model_centroids(cluster_model):
         out_string += "\n"
 
     return out_string
+
+
+def get_cluster_model_centroids_csv(cluster_model, csv_output):
+    """ Returns csv formatted centroid locations """
+
+    genres = cluster_model.genres
+    centers = cluster_model.clusterCenters()
+
+    output = open(csv_output + ".csv", "w")
+    output.write(",".join(genres)+"\n")
+    for i in range(len(centers)):
+
+        for j in range(len(genres)):
+
+            output.write(str(centers[i][j]))
+
+            if j < len(genres) - 1:
+                output.write(",")
+
+        output.write("\n")
+    output.close()
 
 
 def get_users_cluster_predictions(spark, ratings, movies, cluster_model, user_ids):

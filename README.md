@@ -1,31 +1,5 @@
 # CS5052 P1 - Spark Data Analysis Application
 
-## TODO
-
-- Test all methods
-  - Generate examples while at this
-- Clean up all TODOs
-- Number of users in each cluster
-- Check all values for arguments are described
-- Check if given values appear (otherwise we'll get null pointers)
-      - E.g. searching for User ID which doesn't exist
-
-- Part 3
-- user-cluster.txt
-- auto-user-cluster.txt
-- movie-suggestions.txt
-
-- Complete this readme
-
-## Arg Validation required
-- Reject -k if not clustering
-- Reject -L if comparing users OR clustering
-- Value cannot be specified for list top ratings/watches
-    - Value must be specified for everything else
-
-
-
-
 ## Usage
 ----
 The application should be executed with `Python3` using the following command.
@@ -61,6 +35,7 @@ The optional arguments available and their uses are as follows.
 - `-i, --input` : (Value) Provide the directory path for the data to be read
 - `-o, --output` : (Value) Provide the output file for the program to write to
 - `-L, --list` : (Value) Provide a filepath for the results to be outputted to as a CSV file
+
 
 ## Usage Examples
 ----

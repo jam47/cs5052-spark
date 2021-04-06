@@ -10,7 +10,7 @@ from contextlib import redirect_stdout
 from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison
 from searches.movie_searches import movies_by_genres, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
 from searches.movie_searches import aggregate_movies, movies_sorted_rating, movies_sorted_watches
-from searches.cluster_searches import user_cluster_model, user_cluster_model_auto_k, get_cluster_model_centroids, get_cluster_model_silhouette, get_users_cluster_predictions
+from searches.cluster_searches import user_cluster_model, user_cluster_model_auto_k, get_cluster_model_centroids, get_cluster_model_silhouette, get_users_cluster_predictions, get_cluster_model_centroids_csv
 from searches.suggestion_searches import nearest_neighbours, get_movie_suggestions
 
 # ===================================
@@ -21,9 +21,7 @@ from searches.suggestion_searches import nearest_neighbours, get_movie_suggestio
 SPARK_NAME = "CS5052 P1 - Apache Spark"             # Name of the spark app
 APP_NAME = "170002815 & 170001567 - CS5052 P1"      # Name of the program
 # DEFAULT_DATASET_FILEPATH = "data/ml-latest/"        # Location of data directory
-# Location of data directory
-DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"
-
+DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"  # Location of data directory
 
 # Dataset constants
 GENRES = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime",
@@ -134,7 +132,7 @@ def parse_args():
 
         print("Invalid Arguments: Invalid search combination\n")
         parser.print_help()
-        sys.exit(0)
+        sys.exit(1)
 
     # Enforce search value for certain search-bys
     if ((args.search_by == USERS_SB
@@ -142,22 +140,52 @@ def parse_args():
          or args.search_by == MOVIE_NAMES_SB
          or args.search_by == YEARS_SB
          or args.search_by == GENRES_SB)
-            and len(args.search_value) == 0):
+            and (args.search_value is None
+                 or len(args.search_value) == 0)):
 
         print("Invalid Arguments: At least one search value (-v) must be provided")
         parser.print_help()
-        sys.exit(0)
+        sys.exit(1)
 
-    # Other argument validation
+    # Reject alphabetical IDs
+    if (args.search_by == USERS_SB or args.search_by == MOVIE_IDS_SB):
+        for val in args.search_value:
+            try:
+                int(val)
+            except:
+                print("Invalid Arguments: IDs must be numerical")
+                sys.exit(1)
+
+    # Ignore search value for certain search-bys
+    if ((args.search_by == WATCHES_SB or args.search_by == RATING_SB) and (args.search_value is not None)):
+        print("Ignoring Argument(s): Search value ignored for listing searches")
+
+    # No CSV output for comparing users
+    if args.csv_out is not None and args.search_for == COMPARE_USERS_SF:
+        print("Ignoring Argument(s): Cannot output CSV for comparison")
+
+    # 2 or more clusters for k-means
     if args.k <= 1:
         print("Invalid Arguments: k (-k) must be 2 or more for k-means clustering\n")
         parser.print_help()
-        sys.exit(0)
+        sys.exit(1)
 
+    # 1 or more results for output
     if args.out_count <= 0:
         print("Invalid Arguments: count (-c) must be positive\n")
         parser.print_help()
-        sys.exit(0)
+        sys.exit(1)
+
+    # 1 or more neighbours for knn
+    if args.neighbours < 1:
+        print(("Invalid Arguments: Number of neighbours (-n) must be 1 "
+               "or more for k-nearest neighbours"))
+        sys.exit(1)
+
+    # At least 2 users for comparison
+    if args.search_for == COMPARE_USERS_SF and len(args.search_value) < 2:
+        print("Invalid Arguments: At least 2 users must be supplied for a comparison")
+        sys.exit(1)
 
     return args
 
@@ -229,11 +257,26 @@ def main(spark, args):
     # Cast numerical columns
     ratings = ratings\
         .withColumn("rating", ratings.rating.cast(types.FloatType()))\
-        .withColumn("userId", ratings.userId.cast(types.IntegerType()))
+        .withColumn("userId", ratings.userId.cast(types.LongType()))
 
     # Cache dataframes to avoid reloading
     ratings.cache()
     movies.cache()
+
+    # Ensure given IDs are in dataset
+    if args.search_by == USERS_SB:
+        wanted_users = ratings.select("userId")\
+            .where(ratings.userId.isin(args.search_value))
+        if wanted_users.distinct().count() != len(args.search_value):
+            print("Invalid Arguments: Provided user IDs not in dataset")
+            sys.exit(1)
+
+    elif args.search_by == MOVIE_IDS_SB:
+        wanted_movies = movies.select("movieIds")\
+            .where(movies.userId.isin(args.search_value))
+        if wanted_users.distinct().count() != len(args.search_value):
+            print("Invalid Arguments: Provided movie IDs not in dataset")
+            sys.exit(1)
 
     # Perform search
     if args.search_for == USERS_SF:
@@ -297,6 +340,11 @@ def main(spark, args):
         # Output model's centroids
         to_output = get_cluster_model_centroids(cluster_model)
         output.write("\n\nClustering model centroids: " + to_output)
+
+        if args.csv_out is not None:
+            # Print to CSV if requested
+            get_cluster_model_centroids_csv(
+                cluster_model, args.csv_out)
 
         # Make & output predictions for given users
         predictions_df = get_users_cluster_predictions(

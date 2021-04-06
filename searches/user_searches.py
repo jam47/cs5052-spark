@@ -30,14 +30,15 @@ def users_by_ids(spark, ratings, movies, user_ids):
         "genres")).withColumnRenamed("count(genres)", "genresWatched")
 
     # Summarise aggregations in new users datatframe via joins
-    users = spark.createDataFrame(user_ids, types.StringType()).toDF("userId")
+    users = spark.createDataFrame(
+        user_ids, types.StringType()).toDF("userId")
     users = users.join(user_ratings_agg, users.userId == user_ratings_agg.userId, "left")\
         .drop(user_ratings_agg.userId)\
         .join(user_movies_agg, users.userId == user_movies_agg.userId, "left")\
         .drop(user_movies_agg.userId)
 
     # Sort by ID
-    users = users.withColumn("userId", users.userId.cast(types.IntegerType()))\
+    users = users.withColumn("userId", users.userId.cast(types.LongType()))\
         .sort(col("userId").asc())
 
     # Replace null values
@@ -133,15 +134,11 @@ def user_taste_comparison(spark, ratings, movies, user_ids):
     lowest_rated_movie = movies.filter(
         movies.movieId == lowest_rated_movie_id).first()
 
-    # TODO - Is this ranking correct?? This may be inverted as rank may be lowest
     # Find highest & lowest ranked genres on average
     genre_scores = user_genre_scores(spark, ratings, movies, user_ids)
-    genre_scores.show()
 
     genre_ranks = genre_scores.withColumn("genreRank", row_number().over(
         Window.partitionBy("userId").orderBy("score")))
-
-    genre_ranks.show()
 
     avg_genre_ranks = genre_ranks.groupBy("genre").agg(
         mean("genreRank").alias("avgGenreRank"))
