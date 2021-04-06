@@ -1,5 +1,14 @@
 # CS5052 P1 - Spark Data Analysis Application
 
+## Directory Structure
+----
+The root directory of this codebase contains the following files and directories.
+- `README.md` : This file.
+- `p1.py` : A Python3 file containing the main method of the application.
+- `searches` : A directory containing Python3 files, each of which includes a variety of searches required by the application.
+- `examples` :  A directory containing 3 subdirectories: one for each part of the specification (core, intermediate, and advanced). Each subdirectory contains a set of example output files, with one file being present for each functionality of the application.
+
+
 ## Usage
 ----
 The application should be executed with `Python3` using the following command.
