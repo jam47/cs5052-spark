@@ -133,6 +133,7 @@ def user_taste_comparison(spark, ratings, movies, user_ids):
     lowest_rated_movie = movies.filter(
         movies.movieId == lowest_rated_movie_id).first()
 
+    # TODO - Is this ranking correct?? This may be inverted as rank may be lowest
     # Find highest & lowest ranked genres on average
     genre_scores = user_genre_scores(spark, ratings, movies, user_ids)
 

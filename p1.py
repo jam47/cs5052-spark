@@ -9,9 +9,9 @@ from datetime import datetime
 from contextlib import redirect_stdout
 from searches.user_searches import users_by_ids, formatted_user_genre_scores, user_taste_comparison
 from searches.movie_searches import movies_by_genres, movies_by_titles, movies_by_ids, movies_by_user_ids, movies_by_years
-from searches.movie_searches import movies_sorted_rating, movies_sorted_watches
+from searches.movie_searches import aggregate_movies, movies_sorted_rating, movies_sorted_watches
 from searches.cluster_searches import user_cluster_model, user_cluster_model_auto_k, get_cluster_model_centroids, get_cluster_model_silhouette, get_users_cluster_predictions
-
+from searches.suggestion_searches import nearest_neighbours, get_movie_suggestions
 
 # ===================================
 # ======== GLOBAL CONSTANTS =========
@@ -36,6 +36,7 @@ MOVIES_SF = "movies"
 FAV_GENRES_SF = "favourite-genres"
 COMPARE_USERS_SF = "compare-users"
 CLUSTER_USERS_SF = "cluster-users"
+MOVIE_SUGGESTIONS_SF = "movie-suggestions"
 
 # Search-by keys
 USERS_SB = "user-ids"
@@ -58,13 +59,14 @@ def parse_args():
     # Search for
     parser.add_argument("-f", "--search-for", action="store", dest="search_for", required=True,
                         choices=[USERS_SF, MOVIES_SF,
-                                 FAV_GENRES_SF, COMPARE_USERS_SF, CLUSTER_USERS_SF],
+                                 FAV_GENRES_SF, COMPARE_USERS_SF, CLUSTER_USERS_SF, MOVIE_SUGGESTIONS_SF],
                         help=("The type of entity to search for:"
                               "\n\t- " + USERS_SF + ": Search for users"
                               "\n\t- " + MOVIES_SF + ": Search for movies"
                               "\n\t- " + FAV_GENRES_SF + ": Search for users' favourite genres"
                               "\n\t- " + COMPARE_USERS_SF + ": Compare users' preferences"
                               "\n\t- " + CLUSTER_USERS_SF + ": Cluster users based on their preferences"
+                              "\n\t- " + MOVIE_SUGGESTIONS_SF + ": Search for movie suggestions"
                               ))
 
     # Search by
@@ -93,7 +95,7 @@ def parse_args():
                         help="The number of results to return")
 
     # Results as csv list
-    parser.add_argument("-l", "--list", dest="csv_out",
+    parser.add_argument("-L", "--list", dest="csv_out",
                         help="Output result as CSV to given filepath")
 
     # k for k-means clustering
@@ -104,6 +106,11 @@ def parse_args():
     parser.add_argument("-a", "--auto-k-means", dest="auto_k_means", action="store_true",
                         help=("Automatically determine the values of k. "
                               "Use the '-k' argument to specify the maximum."))
+
+    # n nearest neighbours for suggestions
+    parser.add_argument("-n", "--neighbours", dest="neighbours", default=2, type=int,
+                        help=("The number of neighbours to infer suggestions "
+                              "from for nearest neighbour suggestions"))
 
     # Input directory
     parser.add_argument("-i", "--input", action="store", dest="input_dirpath",
@@ -239,7 +246,7 @@ def main(spark, args):
         if args.search_by == USERS_SB:
             # Get users' genre scores
             scores = formatted_user_genre_scores(
-                spark, ratings, movies, args.search_value)
+                spark, ratings, movies, args.search_value).cache()
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -251,10 +258,10 @@ def main(spark, args):
 
                 # Output user's highest score (i.e. favourite)
                 output.write("User " + user_id + "'s favourite genre: " +
-                             user_scores.first().genres)
+                             user_scores.first().genre + "\n")
 
                 # Output user's scores
-                output.write("\nUser " + user_id + "'s scores:")
+                output.write("\nUser " + user_id + "'s scores:\n")
                 df_to_output(user_scores, args.out_count, output)
                 output.write("\n")
 
@@ -301,6 +308,36 @@ def main(spark, args):
         output_dataframe(predictions_df, output, len(
             args.search_value), args.csv_out)
 
+    elif args.search_for == MOVIE_SUGGESTIONS_SF:
+        # Search for movie suggestions for given user IDs
+        neighbours = nearest_neighbours(
+            spark, ratings, movies, args.search_value)
+
+        if args.csv_out is not None:
+            # Print to CSV if requested
+            df_to_csv(neighbours, args.csv_out)
+
+        for user_id in args.search_value:
+            # Filter to this user
+            this_user_neighbours = neighbours.where(
+                neighbours.userId == user_id)
+
+            # Display nearest neighbours
+            output.write("\nUser " + str(user_id) + "'s nearest neighbours:\n")
+            df_to_output(this_user_neighbours, args.out_count, output)
+
+            # Find movies from n nearest neighbours
+            neighbour_ids = this_user_neighbours\
+                .limit(args.neighbours)\
+                .select("neighbourId")\
+                .rdd.flatMap(lambda x: x).collect()
+
+            suggestions = get_movie_suggestions(
+                spark, ratings, movies, user_id, neighbour_ids)
+
+            output.write("\nSuggestions for user " + str(user_id) + ":\n")
+            df_to_output(suggestions, args.out_count, output)
+
     elif args.search_for == MOVIES_SF:
         if args.search_by == MOVIE_IDS_SB:
             # Search for movies by IDs & display
@@ -317,7 +354,7 @@ def main(spark, args):
         elif args.search_by == GENRES_SB:
             # Search for movies by genres
             genres_movies = movies_by_genres(
-                spark, ratings, movies, args.search_value)
+                spark, ratings, movies, args.search_value).cache()
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -335,11 +372,14 @@ def main(spark, args):
         elif args.search_by == USERS_SB:
             # Search for movies by user IDs
             users_movies = movies_by_user_ids(spark, ratings, movies,
-                                              args.search_value)
+                                              args.search_value).cache()
 
             if args.csv_out is not None:
                 # Print to CSV if requested
                 df_to_csv(users_movies, args.csv_out)
+
+            # Find aggregate movie data (count & average)
+            movies_agg = aggregate_movies(ratings, movies).cache()
 
             for user_id in args.search_value:
                 # Filter found movie IDs to this user
@@ -347,7 +387,8 @@ def main(spark, args):
                     users_movies.userId == user_id).select("movieId")
 
                 # Join to movie dataframe to get full movie details
-                this_user_movies = this_user_movie_ids.join(movies, "movieId")
+                this_user_movies = this_user_movie_ids.join(
+                    movies_agg, "movieId")
 
                 # Display
                 output.write("Movies for user ID " + user_id + ":\n")
@@ -357,7 +398,7 @@ def main(spark, args):
         elif args.search_by == YEARS_SB:
             # Search for movies by given years
             movies_in_years = movies_by_years(
-                spark, ratings, movies, args.search_value)
+                spark, ratings, movies, args.search_value).cache()
 
             if args.csv_out is not None:
                 # Print to CSV if requested
@@ -370,8 +411,7 @@ def main(spark, args):
 
                 # Display
                 output.write("Movies in " + year + ":\n")
-                df_to_output(this_year_movies, output,
-                             args.out_count, args.csv_out)
+                df_to_output(this_year_movies, args.out_count, output)
 
         elif args.search_by == RATING_SB:
             # Get movies sorted by average rating & display
@@ -397,8 +437,11 @@ if __name__ == "__main__":
 
     # Configure Spark Job
     spark = SparkSession.builder.master("local")\
-        .appName(SPARK_NAME).getOrCreate()
-    spark.sparkContext.setLogLevel("ERROR")
+        .appName(SPARK_NAME)\
+        .master("local[10]") \
+        .config("spark.driver.memory", "16G")\
+        .getOrCreate()
+    spark.sparkContext.setLogLevel("ERROR")\
 
     # Execute program
     main(spark, args)

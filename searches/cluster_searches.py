@@ -25,12 +25,15 @@ def user_cluster_model(spark, ratings, movies, k, genres):
 
     # Convert genres in rows to columns
     scores = scores.groupBy("userId").pivot(
-        "genre").agg(first("score")).na.fill(0).cache()
+        "genre").agg(first("score")).na.fill(0)
+
+    # Ignore movies without genres
+    if "(no genres listed)" in scores.columns:
+        scores = scores.drop("(no genres listed)")
+    scores.cache()
 
     # Find genres in dataset used
     genres_in_scores = scores.drop("userId").columns
-    if "(no genres listed)" in scores.columns:
-        scores.drop("(no genres listed)")
 
     # Train a k-means model
     scores = VectorAssembler(
@@ -102,7 +105,7 @@ def get_users_cluster_predictions(spark, ratings, movies, cluster_model, user_id
     users_scores = users_scores.groupBy("userId").pivot(
         "genre").agg(first("score")).na.fill(0).cache()
 
-    # Add missing genres used in model
+    # Add missing genres used in model & remove "no genres" genre
     genres_in_scores = users_scores.drop("userId").columns
     if "(no genres listed)" in users_scores.columns:
         genres_in_scores.drop("(no genres listed)")

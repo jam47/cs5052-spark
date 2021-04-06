@@ -4,13 +4,20 @@ from pyspark.sql.functions import col, lower, array_contains, explode, count, me
 def movies_by_ids(spark, ratings, movies, movie_ids):
     """ Returns a dataframe containing details about the movies matching the IDs in movie_ids """
 
-    return movies.where(movies.movieId.isin(movie_ids))
+    # Find aggregate movie data (count & average)
+    movies_agg = aggregate_movies(ratings, movies)
+
+    # Return movies with given IDs
+    return movies_agg.where(movies_agg.movieId.isin(movie_ids))
 
 
 def movies_by_titles(spark, ratings, movies, titles):
     """ Returns a dataframe containing movies with names similar to those in titles """
 
-    return movies.where(lower(movies.title).rlike("|".join(titles)))
+    # Find aggregate movie data (count & average)
+    movies_agg = aggregate_movies(ratings, movies)
+
+    return movies_agg.where(lower(movies_agg.title).rlike("|".join(titles)))
 
 
 def movies_by_user_ids(spark, ratings, movies, user_ids):
@@ -30,9 +37,12 @@ def movies_by_user_ids(spark, ratings, movies, user_ids):
 def movies_by_genres(spark, ratings, movies, genres):
     """ Returns a dataframe containing movies with genre in their list of genres """
 
+    # Find aggregate movie data (count & average)
+    movies_agg = aggregate_movies(ratings, movies)
+
     # Expand genres arrays into multiple rows
-    genre_movies = movies.withColumn(
-        "genre_temp", explode(movies.genres))
+    genre_movies = movies_agg.withColumn(
+        "genre_temp", explode(movies_agg.genres))
 
     # Filter movies to genres; Remove expanded genres column & duplicate movies
     genre_movies = genre_movies.filter(genre_movies.genre_temp.isin(genres))\
@@ -45,7 +55,10 @@ def movies_by_years(spark, ratings, movies, years):
     """ Returns a dataframe containing movies which were released #
     in a year in provided years """
 
-    return movies.filter(movies.year.isin(years))
+    # Find aggregate movie data (count & average)
+    movies_agg = aggregate_movies(ratings, movies)
+
+    return movies_agg.filter(movies_agg.year.isin(years))
 
 
 def movies_sorted_rating(spark, ratings, movies):
