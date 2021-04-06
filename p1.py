@@ -20,8 +20,7 @@ from searches.suggestion_searches import nearest_neighbours, get_movie_suggestio
 # Environment variables
 SPARK_NAME = "CS5052 P1 - Apache Spark"             # Name of the spark app
 APP_NAME = "170002815 & 170001567 - CS5052 P1"      # Name of the program
-# DEFAULT_DATASET_FILEPATH = "data/ml-latest/"        # Location of data directory
-DEFAULT_DATASET_FILEPATH = "data/ml-latest-small/"  # Location of data directory
+DEFAULT_DATASET_FILEPATH = "data/ml-latest/"        # Location of data directory
 
 # Dataset constants
 GENRES = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime",
