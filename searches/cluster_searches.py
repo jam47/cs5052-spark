@@ -15,7 +15,7 @@ def get_cluster_model_silhouette(cluster_model):
 def user_cluster_model(spark, ratings, movies, k, genres):
     """ Returns a clustering model for users' genre preferences """
 
-    # Get scores for all users & sort alphabetically
+    # Get all user ids
     all_user_ids = ratings.select(
         "userId").distinct().rdd.flatMap(lambda x: x).collect()
 
