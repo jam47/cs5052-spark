@@ -61,10 +61,6 @@ def user_genre_scores(spark, ratings, movies, user_ids):
         "genres", explode(movies_ratings.genres))\
         .withColumnRenamed("genres", "genre")
 
-    # Create dataframe for output
-    user_genre_scores = spark.createDataFrame(
-        user_ids, types.StringType()).toDF("userId")
-
     # Find sum and count of ratings for each user
     scores = movies_ratings.groupBy('userId', 'genre').agg(
         count('rating').alias("ratingCount"), spark_sum('rating').alias("ratingSum"))
