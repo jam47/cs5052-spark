@@ -273,7 +273,7 @@ def main(spark, args):
     elif args.search_by == MOVIE_IDS_SB:
         wanted_movies = movies.select("movieIds")\
             .where(movies.userId.isin(args.search_value))
-        if wanted_users.distinct().count() != len(args.search_value):
+        if wanted_movies.distinct().count() != len(args.search_value):
             print("Invalid Arguments: Provided movie IDs not in dataset")
             sys.exit(1)
 
