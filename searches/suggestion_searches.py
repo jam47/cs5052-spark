@@ -26,7 +26,7 @@ def nearest_neighbours(spark, ratings, movies, user_ids):
         lambda x: scores_df_euclidean_dist(x), types.FloatType())
     spark.udf.register("distance_func", distance_func)
 
-    # Get scores for all users & sort alphabetically
+    # Get user ids
     all_user_ids = ratings.select(
         "userId").distinct().rdd.flatMap(lambda x: x).collect()
 
