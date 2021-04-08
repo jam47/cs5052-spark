@@ -65,8 +65,6 @@ def nearest_neighbours(spark, ratings, movies, user_ids):
         # Cross join user's scores for access in user-defined function
         other_scores = other_scores.crossJoin(user_scores)
 
-        other_scores.show()
-
         # Calculate distance to each datapoint from user's datapoint
         distances = other_scores.withColumn(
             "distance", distance_func(array("genreScores", "userGenreScores")))\

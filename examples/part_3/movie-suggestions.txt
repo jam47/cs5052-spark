@@ -1,7 +1,7 @@
 Program: 170002815 & 170001567 - CS5052 P1
 Command: p1.py -f movie-suggestions -b user-ids -v 1 2 -c 50 -o examples/part_3/movie-suggestions.txt
 Data directory: data/ml-latest-small/
-Date: 2021.04.06 09:57
+Date: 2021.04.08 11:35
 
 
 User 1's nearest neighbours:
@@ -63,60 +63,60 @@ only showing top 50 rows
 
 
 Suggestions for user 1:
-+-------+-----------------+------+----------+-----------------------------------------------------------------------+----------------------------------------------+----+
-|movieId|suggestedByUserId|rating|timestamp |title                                                                  |genres                                        |year|
-+-------+-----------------+------+----------+-----------------------------------------------------------------------+----------------------------------------------+----+
-|1259   |452              |5.0   |1019585277|Stand by Me                                                            |[Adventure, Drama]                            |1986|
-|2126   |452              |5.0   |1019581070|Snake Eyes                                                             |[Action, Crime, Mystery, Thriller]            |1998|
-|1265   |452              |5.0   |1013398330|Groundhog Day                                                          |[Comedy, Fantasy, Romance]                    |1993|
-|1275   |452              |5.0   |1019580751|Highlander                                                             |[Action, Adventure, Fantasy]                  |1986|
-|2115   |452              |5.0   |1019580769|Indiana Jones and the Temple of Doom                                   |[Action, Adventure, Fantasy]                  |1984|
-|1343   |452              |5.0   |1013394437|Cape Fear                                                              |[Thriller]                                    |1991|
-|110    |452              |5.0   |1013394732|Braveheart                                                             |[Action, Drama, War]                          |1995|
-|1356   |452              |5.0   |1013396292|Star Trek: First Contact                                               |[Action, Adventure, Sci-Fi, Thriller]         |1996|
-|316    |452              |5.0   |1019580826|Stargate                                                               |[Action, Adventure, Sci-Fi]                   |1994|
-|1374   |452              |5.0   |1013394855|Star Trek II: The Wrath of Khan                                        |[Action, Adventure, Sci-Fi, Thriller]         |1982|
-|353    |452              |5.0   |1019580676|Crow, The                                                              |[Action, Crime, Fantasy, Thriller]            |1994|
-|1376   |452              |5.0   |1019580751|Star Trek IV: The Voyage Home                                          |[Adventure, Comedy, Sci-Fi]                   |1986|
-|380    |452              |5.0   |1019580751|True Lies                                                              |[Action, Adventure, Comedy, Romance, Thriller]|1994|
-|1387   |452              |5.0   |1013396622|Jaws                                                                   |[Action, Horror]                              |1975|
-|541    |452              |5.0   |1013395184|Blade Runner                                                           |[Action, Sci-Fi, Thriller]                    |1982|
-|1391   |452              |5.0   |1019580991|Mars Attacks!                                                          |[Action, Comedy, Sci-Fi]                      |1996|
-|589    |452              |5.0   |1013394732|Terminator 2: Judgment Day                                             |[Action, Sci-Fi]                              |1991|
-|1394   |452              |5.0   |1019585331|Raising Arizona                                                        |[Comedy]                                      |1987|
-|608    |452              |5.0   |1019581156|Fargo                                                                  |[Comedy, Crime, Drama, Thriller]              |1996|
-|1407   |452              |5.0   |1013397945|Scream                                                                 |[Comedy, Horror, Mystery, Thriller]           |1996|
-|780    |452              |5.0   |1013396422|Independence Day (a.k.a. ID4)                                          |[Action, Adventure, Sci-Fi, Thriller]         |1996|
-|1517   |452              |5.0   |1013396347|Austin Powers: International Man of Mystery                            |[Action, Adventure, Comedy]                   |1997|
-|1079   |452              |5.0   |1019585436|Fish Called Wanda, A                                                   |[Comedy, Crime]                               |1988|
-|1573   |452              |5.0   |1013396235|Face/Off                                                               |[Action, Crime, Drama, Thriller]              |1997|
-|1097   |452              |5.0   |1013395206|E.T. the Extra-Terrestrial                                             |[Children, Drama, Sci-Fi]                     |1982|
-|1584   |452              |5.0   |1013395256|Contact                                                                |[Drama, Sci-Fi]                               |1997|
-|1129   |452              |5.0   |1019584576|Escape from New York                                                   |[Action, Adventure, Sci-Fi, Thriller]         |1981|
-|1608   |452              |5.0   |1019580899|Air Force One                                                          |[Action, Thriller]                            |1997|
-|1196   |452              |5.0   |1013395184|Star Wars: Episode V - The Empire Strikes Back                         |[Action, Adventure, Sci-Fi]                   |1980|
-|1616   |452              |5.0   |1019580866|Peacemaker, The                                                        |[Action, Thriller, War]                       |1997|
-|1198   |452              |5.0   |1013394526|Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark)|[Action, Adventure]                           |1981|
-|1617   |452              |5.0   |1013394501|L.A. Confidential                                                      |[Crime, Film-Noir, Mystery, Thriller]         |1997|
-|1206   |452              |5.0   |1013395218|Clockwork Orange, A                                                    |[Crime, Drama, Sci-Fi, Thriller]              |1971|
-|1620   |452              |5.0   |1019584596|Kiss the Girls                                                         |[Crime, Drama, Mystery, Thriller]             |1997|
-|1222   |452              |5.0   |1019580676|Full Metal Jacket                                                      |[Drama, War]                                  |1987|
-|1641   |452              |5.0   |1013395394|Full Monty, The                                                        |[Comedy, Drama]                               |1997|
-|47     |452              |5.0   |1019581177|Seven (a.k.a. Se7en)                                                   |[Mystery, Thriller]                           |1995|
-|1653   |452              |5.0   |1013395308|Gattaca                                                                |[Drama, Sci-Fi, Thriller]                     |1997|
-|260    |452              |5.0   |1013394673|Star Wars: Episode IV - A New Hope                                     |[Action, Adventure, Sci-Fi]                   |1977|
-|1663   |452              |5.0   |1019585417|Stripes                                                                |[Comedy, War]                                 |1981|
-|356    |452              |5.0   |1019585497|Forrest Gump                                                           |[Comedy, Drama, Romance, War]                 |1994|
-|1676   |452              |5.0   |1019580795|Starship Troopers                                                      |[Action, Sci-Fi]                              |1997|
-|552    |452              |5.0   |1019580899|Three Musketeers, The                                                  |[Action, Adventure, Comedy, Romance]          |1993|
-|1687   |452              |5.0   |1019581043|Jackal, The                                                            |[Action, Thriller]                            |1997|
-|648    |452              |5.0   |1019580795|Mission: Impossible                                                    |[Action, Adventure, Mystery, Thriller]        |1996|
-|1717   |452              |5.0   |1019584576|Scream 2                                                               |[Comedy, Horror, Mystery, Thriller]           |1997|
-|1089   |452              |5.0   |1019581156|Reservoir Dogs                                                         |[Crime, Mystery, Thriller]                    |1992|
-|1732   |452              |5.0   |1013395862|Big Lebowski, The                                                      |[Comedy, Crime]                               |1998|
-|1136   |452              |5.0   |1013396371|Monty Python and the Holy Grail                                        |[Adventure, Comedy, Fantasy]                  |1975|
-|1792   |452              |5.0   |1019580934|U.S. Marshals                                                          |[Action, Crime, Thriller]                     |1998|
-+-------+-----------------+------+----------+-----------------------------------------------------------------------+----------------------------------------------+----+
++-------+-----------------+------+----------+-------------------------------------+----------------------------------------------+----+
+|movieId|suggestedByUserId|rating|timestamp |title                                |genres                                        |year|
++-------+-----------------+------+----------+-------------------------------------+----------------------------------------------+----+
+|1968   |452              |5.0   |1013394485|Breakfast Club, The                  |[Comedy, Drama]                               |1985|
+|4015   |452              |5.0   |1013395549|Dude, Where's My Car?                |[Comedy, Sci-Fi]                              |2000|
+|1997   |452              |5.0   |1013397891|Exorcist, The                        |[Horror, Mystery]                             |1973|
+|2023   |452              |5.0   |1019580899|Godfather: Part III, The             |[Crime, Drama, Mystery, Thriller]             |1990|
+|2126   |452              |5.0   |1019581070|Snake Eyes                           |[Action, Crime, Mystery, Thriller]            |1998|
+|337    |452              |5.0   |1013398347|What's Eating Gilbert Grape          |[Drama]                                       |1993|
+|2160   |452              |5.0   |1013396622|Rosemary's Baby                      |[Drama, Horror, Thriller]                     |1968|
+|380    |452              |5.0   |1019580751|True Lies                            |[Action, Adventure, Comedy, Romance, Thriller]|1994|
+|2167   |452              |5.0   |1013395104|Blade                                |[Action, Horror, Thriller]                    |1998|
+|589    |452              |5.0   |1013394732|Terminator 2: Judgment Day           |[Action, Sci-Fi]                              |1991|
+|2278   |452              |5.0   |1013395118|Ronin                                |[Action, Crime, Thriller]                     |1998|
+|1079   |452              |5.0   |1019585436|Fish Called Wanda, A                 |[Comedy, Crime]                               |1988|
+|2393   |452              |5.0   |1013396258|Star Trek: Insurrection              |[Action, Drama, Romance, Sci-Fi]              |1998|
+|1200   |452              |5.0   |1019581156|Aliens                               |[Action, Adventure, Horror, Sci-Fi]           |1986|
+|2396   |452              |5.0   |1019585277|Shakespeare in Love                  |[Comedy, Drama, Romance]                      |1998|
+|1259   |452              |5.0   |1019585277|Stand by Me                          |[Adventure, Drama]                            |1986|
+|2490   |452              |5.0   |1019584576|Payback                              |[Action, Thriller]                            |1999|
+|1356   |452              |5.0   |1013396292|Star Trek: First Contact             |[Action, Adventure, Sci-Fi, Thriller]         |1996|
+|2533   |452              |5.0   |1019580965|Escape from the Planet of the Apes   |[Action, Sci-Fi]                              |1971|
+|1376   |452              |5.0   |1019580751|Star Trek IV: The Voyage Home        |[Adventure, Comedy, Sci-Fi]                   |1986|
+|2683   |452              |5.0   |1013396347|Austin Powers: The Spy Who Shagged Me|[Action, Adventure, Comedy]                   |1999|
+|1391   |452              |5.0   |1019580991|Mars Attacks!                        |[Action, Comedy, Sci-Fi]                      |1996|
+|2706   |452              |5.0   |1013395578|American Pie                         |[Comedy, Romance]                             |1999|
+|1407   |452              |5.0   |1013397945|Scream                               |[Comedy, Horror, Mystery, Thriller]           |1996|
+|2707   |452              |5.0   |1019584632|Arlington Road                       |[Thriller]                                    |1999|
+|1608   |452              |5.0   |1019580899|Air Force One                        |[Action, Thriller]                            |1997|
+|2762   |452              |5.0   |1013398330|Sixth Sense, The                     |[Drama, Horror, Mystery]                      |1999|
+|1641   |452              |5.0   |1013395394|Full Monty, The                      |[Comedy, Drama]                               |1997|
+|2763   |452              |5.0   |1019580723|Thomas Crown Affair, The             |[Action, Mystery]                             |1999|
+|1663   |452              |5.0   |1019585417|Stripes                              |[Comedy, War]                                 |1981|
+|2791   |452              |5.0   |1019585497|Airplane!                            |[Comedy]                                      |1980|
+|1717   |452              |5.0   |1019584576|Scream 2                             |[Comedy, Horror, Mystery, Thriller]           |1997|
+|2841   |452              |5.0   |1019584576|Stir of Echoes                       |[Horror, Mystery, Thriller]                   |1999|
+|1801   |452              |5.0   |1019581043|Man in the Iron Mask, The            |[Action, Adventure, Drama]                    |1998|
+|2871   |452              |5.0   |1019581199|Deliverance                          |[Adventure, Drama, Thriller]                  |1972|
+|1917   |452              |5.0   |1019580965|Armageddon                           |[Action, Romance, Sci-Fi, Thriller]           |1998|
+|2918   |452              |5.0   |1019585381|Ferris Bueller's Day Off             |[Comedy]                                      |1986|
+|4014   |452              |5.0   |1019585436|Chocolat                             |[Drama, Romance]                              |2000|
+|3082   |452              |5.0   |1019580866|World Is Not Enough, The             |[Action, Adventure, Thriller]                 |1999|
+|541    |452              |5.0   |1013395184|Blade Runner                         |[Action, Sci-Fi, Thriller]                    |1982|
+|3101   |452              |5.0   |1019584576|Fatal Attraction                     |[Drama, Thriller]                             |1987|
+|1129   |452              |5.0   |1019584576|Escape from New York                 |[Action, Adventure, Sci-Fi, Thriller]         |1981|
+|3175   |452              |5.0   |1013395256|Galaxy Quest                         |[Adventure, Comedy, Sci-Fi]                   |1999|
+|1343   |452              |5.0   |1013394437|Cape Fear                            |[Thriller]                                    |1991|
+|3219   |452              |5.0   |1019584596|Pacific Heights                      |[Mystery, Thriller]                           |1990|
+|1387   |452              |5.0   |1013396622|Jaws                                 |[Action, Horror]                              |1975|
+|3301   |452              |5.0   |1019585456|Whole Nine Yards, The                |[Comedy, Crime]                               |2000|
+|1584   |452              |5.0   |1013395256|Contact                              |[Drama, Sci-Fi]                               |1997|
+|3552   |452              |5.0   |1019585515|Caddyshack                           |[Comedy]                                      |1980|
+|1653   |452              |5.0   |1013395308|Gattaca                              |[Drama, Sci-Fi, Thriller]                     |1997|
++-------+-----------------+------+----------+-------------------------------------+----------------------------------------------+----+
 only showing top 50 rows
 
 
@@ -191,17 +191,15 @@ Suggestions for user 2:
 |858    |76               |5.0   |1439165633|Godfather, The                                |[Crime, Drama]                    |1972|
 |1136   |76               |5.0   |1439166982|Monty Python and the Holy Grail               |[Adventure, Comedy, Fantasy]      |1975|
 |50     |433              |5.0   |1506823884|Usual Suspects, The                           |[Crime, Mystery, Thriller]        |1995|
-|296    |76               |4.5   |1439165672|Pulp Fiction                                  |[Comedy, Crime, Drama, Thriller]  |1994|
 |81535  |76               |4.5   |1439168697|Saw VII 3D - The Final Chapter                |[Horror, Mystery, Thriller]       |2010|
-|778    |433              |4.5   |1506824039|Trainspotting                                 |[Comedy, Crime, Drama]            |1996|
 |1080   |76               |4.5   |1439167537|Monty Python's Life of Brian                  |[Comedy]                          |1979|
 |2318   |76               |4.5   |1439168833|Happiness                                     |[Comedy, Drama]                   |1998|
 |39446  |76               |4.5   |1439166934|Saw II                                        |[Horror, Thriller]                |2005|
 |1089   |76               |4.5   |1439166069|Reservoir Dogs                                |[Crime, Mystery, Thriller]        |1992|
-|318    |433              |4.5   |1506823818|Shawshank Redemption, The                     |[Crime, Drama]                    |1994|
-|91529  |433              |4.5   |1506824058|Dark Knight Rises, The                        |[Action, Adventure, Crime, IMAX]  |2012|
-|1221   |76               |4.5   |1439166402|Godfather: Part II, The                       |[Crime, Drama]                    |1974|
+|778    |433              |4.5   |1506824039|Trainspotting                                 |[Comedy, Crime, Drama]            |1996|
 |1206   |76               |4.5   |1439166958|Clockwork Orange, A                           |[Crime, Drama, Sci-Fi, Thriller]  |1971|
+|1221   |76               |4.5   |1439166402|Godfather: Part II, The                       |[Crime, Drama]                    |1974|
+|296    |76               |4.5   |1439165672|Pulp Fiction                                  |[Comedy, Crime, Drama, Thriller]  |1994|
 |2959   |76               |4.5   |1439165676|Fight Club                                    |[Action, Crime, Drama, Thriller]  |1999|
 |778    |76               |4.5   |1439166459|Trainspotting                                 |[Comedy, Crime, Drama]            |1996|
 |4226   |76               |4.5   |1439168156|Memento                                       |[Mystery, Thriller]               |2000|
@@ -212,26 +210,28 @@ Suggestions for user 2:
 |63436  |76               |4.5   |1439167384|Saw V                                         |[Crime, Horror, Thriller]         |2008|
 |72129  |76               |4.5   |1439167407|Saw VI                                        |[Crime, Horror, Mystery, Thriller]|2009|
 |260    |76               |4.0   |1439165601|Star Wars: Episode IV - A New Hope            |[Action, Adventure, Sci-Fi]       |1977|
-|608    |76               |4.0   |1439166078|Fargo                                         |[Comedy, Crime, Drama, Thriller]  |1996|
-|288    |76               |4.0   |1439168262|Natural Born Killers                          |[Action, Crime, Thriller]         |1994|
-|1196   |76               |4.0   |1439168691|Star Wars: Episode V - The Empire Strikes Back|[Action, Adventure, Sci-Fi]       |1980|
-|2502   |76               |4.0   |1439168287|Office Space                                  |[Comedy, Crime]                   |1999|
-|33004  |76               |4.0   |1439165905|Hitchhiker's Guide to the Galaxy, The         |[Adventure, Comedy, Sci-Fi]       |2005|
 |1208   |76               |4.0   |1439167500|Apocalypse Now                                |[Action, Drama, War]              |1979|
-|1278   |76               |4.0   |1439167548|Young Frankenstein                            |[Comedy, Fantasy]                 |1974|
-|2571   |76               |4.0   |1439165565|Matrix, The                                   |[Action, Sci-Fi, Thriller]        |1999|
-|2858   |76               |4.0   |1439167032|American Beauty                               |[Drama, Romance]                  |1999|
-|57669  |76               |4.0   |1439167975|In Bruges                                     |[Comedy, Crime, Drama, Thriller]  |2008|
+|288    |76               |4.0   |1439168262|Natural Born Killers                          |[Action, Crime, Thriller]         |1994|
 |1214   |76               |4.0   |1439166544|Alien                                         |[Horror, Sci-Fi]                  |1979|
-|1288   |76               |4.0   |1439167369|This Is Spinal Tap                            |[Comedy]                          |1984|
-|1732   |76               |4.0   |1439168285|Big Lebowski, The                             |[Comedy, Crime]                   |1998|
 |2762   |76               |4.0   |1439168123|Sixth Sense, The                              |[Drama, Horror, Mystery]          |1999|
-|27611  |76               |4.0   |1439168686|Battlestar Galactica                          |[Drama, Sci-Fi, War]              |2003|
-|30707  |76               |4.0   |1439165832|Million Dollar Baby                           |[Drama]                           |2004|
-|68157  |76               |4.0   |1439167377|Inglourious Basterds                          |[Action, Drama, War]              |2009|
-|2019   |76               |4.0   |1439166434|Seven Samurai (Shichinin no samurai)          |[Action, Adventure, Drama]        |1954|
+|593    |433              |4.0   |1506823947|Silence of the Lambs, The                     |[Crime, Horror, Thriller]         |1991|
+|608    |76               |4.0   |1439166078|Fargo                                         |[Comedy, Crime, Drama, Thriller]  |1996|
+|1278   |76               |4.0   |1439167548|Young Frankenstein                            |[Comedy, Fantasy]                 |1974|
+|1732   |76               |4.0   |1439168285|Big Lebowski, The                             |[Comedy, Crime]                   |1998|
 |2791   |76               |4.0   |1439167504|Airplane!                                     |[Comedy]                          |1980|
+|30707  |76               |4.0   |1439165832|Million Dollar Baby                           |[Drama]                           |2004|
+|608    |433              |4.0   |1506823904|Fargo                                         |[Comedy, Crime, Drama, Thriller]  |1996|
+|1196   |76               |4.0   |1439168691|Star Wars: Episode V - The Empire Strikes Back|[Action, Adventure, Sci-Fi]       |1980|
+|1288   |76               |4.0   |1439167369|This Is Spinal Tap                            |[Comedy]                          |1984|
+|2019   |76               |4.0   |1439166434|Seven Samurai (Shichinin no samurai)          |[Action, Adventure, Drama]        |1954|
+|2502   |76               |4.0   |1439168287|Office Space                                  |[Comedy, Crime]                   |1999|
+|2858   |76               |4.0   |1439167032|American Beauty                               |[Drama, Romance]                  |1999|
 |31410  |76               |4.0   |1439168677|Downfall (Untergang, Der)                     |[Drama, War]                      |2004|
+|33004  |76               |4.0   |1439165905|Hitchhiker's Guide to the Galaxy, The         |[Adventure, Comedy, Sci-Fi]       |2005|
+|1089   |433              |4.0   |1506823959|Reservoir Dogs                                |[Crime, Mystery, Thriller]        |1992|
+|2571   |76               |4.0   |1439165565|Matrix, The                                   |[Action, Sci-Fi, Thriller]        |1999|
+|27611  |76               |4.0   |1439168686|Battlestar Galactica                          |[Drama, Sci-Fi, War]              |2003|
+|57669  |76               |4.0   |1439167975|In Bruges                                     |[Comedy, Crime, Drama, Thriller]  |2008|
 +-------+-----------------+------+----------+----------------------------------------------+----------------------------------+----+
 only showing top 50 rows
 
