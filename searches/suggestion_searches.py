@@ -95,4 +95,10 @@ def get_movie_suggestions(spark, ratings, movies, user_id, neighbour_user_ids):
     neighbour_movies = neighbour_movies.where(
         neighbour_movies.rating > 2.5)
 
+    # Find movie ids for ratings made by given user
+    users_ratings = [row.movieId for row in ratings.where(ratings.userId == user_id).collect()]
+
+    # Remove movie suggestions that the user has already seen
+    neighbour_movies = neighbour_movies.where(~neighbour_movies.movieId.isin(users_ratings))
+
     return neighbour_movies
